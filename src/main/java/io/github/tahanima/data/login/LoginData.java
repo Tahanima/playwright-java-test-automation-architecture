@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * @author tahanima
  */
-@ToString
+@ToString(callSuper = true)
 public class LoginData extends BaseData {
     @Getter
     @Parsed(field = "User Name", defaultNullRead = "")
