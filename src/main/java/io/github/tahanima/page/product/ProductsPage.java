@@ -6,7 +6,7 @@ import io.github.tahanima.page.BasePage;
  * @author tahanima
  */
 public class ProductsPage extends BasePage {
-    public String getTitle() {
-        return page.locator(".title").textContent();
-    }
+  public String getTitle() {
+    return page.locator(".title").textContent();
+  }
 }

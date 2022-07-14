@@ -10,26 +10,28 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
  * @author tahanima
  */
 public enum BrowserFactory {
-    CHROMIUM {
-        @Override
-        public Browser initialize(final Playwright playwright) {
-            return playwright.chromium().launch(
-                    new BrowserType.LaunchOptions()
-                            .setHeadless(configuration().headless())
-                            .setSlowMo(configuration().slowMotion())
-            );
-        }
-    },
-    FIREFOX {
-        @Override
-        public Browser initialize(final Playwright playwright) {
-            return playwright.firefox().launch(
-                    new BrowserType.LaunchOptions()
-                            .setHeadless(configuration().headless())
-                            .setSlowMo(configuration().slowMotion())
-            );
-        }
-    };
+  CHROMIUM {
+    @Override
+    public Browser initialize(final Playwright playwright) {
+      return playwright
+          .chromium()
+          .launch(
+              new BrowserType.LaunchOptions()
+                  .setHeadless(configuration().headless())
+                  .setSlowMo(configuration().slowMotion()));
+    }
+  },
+  FIREFOX {
+    @Override
+    public Browser initialize(final Playwright playwright) {
+      return playwright
+          .firefox()
+          .launch(
+              new BrowserType.LaunchOptions()
+                  .setHeadless(configuration().headless())
+                  .setSlowMo(configuration().slowMotion()));
+    }
+  };
 
-    public abstract Browser initialize(Playwright playwright);
+  public abstract Browser initialize(Playwright playwright);
 }

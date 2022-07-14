@@ -15,23 +15,23 @@ import org.testng.annotations.Listeners;
  */
 @Listeners(TestListener.class)
 public abstract class BaseTest {
-    private final Playwright playwright = Playwright.create();
-    private final Browser browser = BrowserManager.browser(playwright);
-    private final Page page = browser.newPage();
+  private final Playwright playwright = Playwright.create();
+  private final Browser browser = BrowserManager.browser(playwright);
+  private final Page page = browser.newPage();
 
-    public abstract void initialize();
+  public abstract void initialize();
 
-    protected <T extends BasePage> T createInstance(final Class<T> basePage) {
-        return BasePageFactory.createInstance(page, basePage);
-    }
+  protected <T extends BasePage> T createInstance(final Class<T> basePage) {
+    return BasePageFactory.createInstance(page, basePage);
+  }
 
-    @BeforeClass
-    public void setup() {
-        initialize();
-    }
+  @BeforeClass
+  public void setup() {
+    initialize();
+  }
 
-    @AfterClass
-    public void teardown() {
-        playwright.close();
-    }
+  @AfterClass
+  public void teardown() {
+    playwright.close();
+  }
 }

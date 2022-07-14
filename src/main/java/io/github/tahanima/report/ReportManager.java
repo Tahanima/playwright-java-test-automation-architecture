@@ -12,22 +12,18 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
  * @author tahanima
  */
 public final class ReportManager {
-    private ReportManager() { }
+  private ReportManager() {}
 
-    public static ExtentReports createReport() {
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss")
-                .format(new Date());
+  public static ExtentReports createReport() {
+    String currentDate = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 
-        String fileName = String.format(
-                "%sTestReport_%s.html",
-                configuration().baseReportPath(),
-                currentDate
-        );
+    String fileName =
+        String.format("%sTestReport_%s.html", configuration().baseReportPath(), currentDate);
 
-        ExtentReports extentReport = new ExtentReports();
-        ExtentSparkReporter spark = new ExtentSparkReporter(fileName);
-        extentReport.attachReporter(spark);
+    ExtentReports extentReport = new ExtentReports();
+    ExtentSparkReporter spark = new ExtentSparkReporter(fileName);
+    extentReport.attachReporter(spark);
 
-        return extentReport;
-    }
+    return extentReport;
+  }
 }
