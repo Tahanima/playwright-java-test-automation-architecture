@@ -2,6 +2,19 @@
 
 Ready-to-use UI Test Automation Architecture using Java and Playwright.
 
+## Installation Steps
+
+In order to use the framework:
+
+1. [Fork](https://github.com/Tahanima/playwright-test-automation-boilerplate/fork) the repository.
+2. Clone, i.e, download your copy of the repository to your local machine using
+```
+git clone https://github.com/[your_username]/playwright-test-automation-boilerplate.git
+```
+3. Import the project in [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
+4. Make your desired changes.
+5. Use IntelliJ IDEA to run your desired tests. Alternatively, you can use the terminal to run the tests, for example `./gradlew test -Dbrowser=firefox -Dheadless=false` to run all the tests using the firefox browser in headed mode.
+
 ## Languages and Frameworks
 
 The project uses the following:
@@ -16,7 +29,72 @@ The project uses the following:
 - *[Gradle](https://gradle.org/)* as the Java build tool.
 - *[IntelliJ IDEA](https://www.jetbrains.com/idea/)* as the IDE.
 
-## Project Architecture
+## Project Structure
+
+The project is structured as follows:
+
+```bash
+📦 playwright-test-automation-boilerplate
+├─ .github
+│  └─ workflows
+│     └─ test-execution.yml
+├─ .gitignore
+├─ README.md
+├─ build.gradle
+├─ gradle
+│  └─ wrapper
+│     ├─ gradle-wrapper.jar
+│     └─ gradle-wrapper.properties
+├─ gradlew
+├─ gradlew.bat
+├─ script
+│  └─ install_chrome.sh
+├─ settings.gradle
+└─ src
+   ├─ main
+   │  ├─ java
+   │  │  └─ io
+   │  │     └─ github
+   │  │        └─ tahanima
+   │  │           ├─ browser
+   │  │           │  ├─ BrowserFactory.java
+   │  │           │  └─ BrowserManager.java
+   │  │           ├─ config
+   │  │           │  ├─ Configuration.java
+   │  │           │  └─ ConfigurationManager.java
+   │  │           ├─ data
+   │  │           │  ├─ BaseData.java
+   │  │           │  └─ login
+   │  │           │     └─ LoginData.java
+   │  │           ├─ page
+   │  │           │  ├─ BasePage.java
+   │  │           │  ├─ BasePageFactory.java
+   │  │           │  ├─ login
+   │  │           │  │  └─ LoginPage.java
+   │  │           │  └─ product
+   │  │           │     └─ ProductsPage.java
+   │  │           └─ report
+   │  │              └─ ExtentReportManager.java
+   │  └─ resources
+   │     └─ general.properties
+   └─ test
+      ├─ java
+      │  └─ io
+      │     └─ github
+      │        └─ tahanima
+      │           ├─ BaseTest.java
+      │           ├─ login
+      │           │  └─ LoginTest.java
+      │           └─ util
+      │              ├─ CsvDataProviderUtil.java
+      │              └─ TestListener.java
+      └─ resources
+         └─ testData
+            └─ login
+               └─ login.csv
+```
+
+## Project Components
 - [Config](#config)
 - [Data](#data)
 - [Page](#page)
