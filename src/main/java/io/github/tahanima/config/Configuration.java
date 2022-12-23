@@ -33,6 +33,12 @@ public interface Configuration extends Config {
     int slowMotion();
 
     /**
+     * @return an integer containing the timeout value
+     */
+    @Key("timeout")
+    int timeout();
+
+    /**
      * @return a string containing the base path to store all the test data
      */
     @Key("base.test.data.path")

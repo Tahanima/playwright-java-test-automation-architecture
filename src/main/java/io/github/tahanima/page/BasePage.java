@@ -14,6 +14,7 @@ public class BasePage {
 
     public void initialize(final Page page) {
         this.page = page;
+        page.setDefaultTimeout(configuration().timeout());
     }
 
     public void captureScreenshot(final String fileName) {
