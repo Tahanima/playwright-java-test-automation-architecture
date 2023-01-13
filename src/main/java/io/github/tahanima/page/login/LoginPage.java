@@ -1,5 +1,6 @@
 package io.github.tahanima.page.login;
 
+import com.microsoft.playwright.Locator;
 import io.github.tahanima.page.BasePage;
 
 import static io.github.tahanima.config.ConfigurationManager.configuration;
@@ -28,8 +29,8 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public String getErrorMessage() {
-        return page.locator(".error-message-container h3").textContent();
+    public Locator getErrorMessageLocator() {
+        return page.locator(".error-message-container h3");
     }
 
     public void clickLogin() {

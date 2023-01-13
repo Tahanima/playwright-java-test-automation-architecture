@@ -7,13 +7,14 @@ import io.github.tahanima.page.product.ProductsPage;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static io.github.tahanima.util.CsvDataProviderUtil.processCsv;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * @author tahanima
@@ -29,10 +30,19 @@ public class LoginTest extends BaseTest {
         return processCsv(LoginData.class, FILE_PATH, testCaseId);
     }
 
-    @Override
-    public void initialize() {
-        loginPage = createInstance(LoginPage.class);
+    @BeforeMethod
+    public void createBrowserContextAndPage() {
+        browserContext = browser.newContext();
+        page = browserContext.newPage();
     }
+
+    @AfterMethod
+    public void closeBrowserContext() {
+        browserContext.close();
+    }
+
+    @Override
+    public void initialize() {}
 
     @AfterMethod
     public void captureScreenshot(final ITestResult result) {
@@ -45,6 +55,8 @@ public class LoginTest extends BaseTest {
 
     @Test(testName = "TC-1", dataProvider = "loginData")
     public void testCorrectUserNameAndCorrectPassword(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
+
         loginPage
                 .goTo()
                 .enterUsername(loginDto.getUserName())
@@ -53,64 +65,74 @@ public class LoginTest extends BaseTest {
 
         ProductsPage productsPage = createInstance(ProductsPage.class);
 
-        assertThat(productsPage.getTitle()).isEqualTo("Products");
+        assertThat(productsPage.getTitleLocator()).hasText("Products");
     }
 
     @Test(testName = "TC-2", dataProvider = "loginData")
     public void testIncorrectUserNameAndCorrectPassword(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
+
         loginPage
                 .goTo()
                 .enterUsername(loginDto.getUserName())
                 .enterPassword(loginDto.getPassword())
                 .clickLogin();
 
-        assertThat(loginPage.getErrorMessage()).isEqualTo(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(testName = "TC-3", dataProvider = "loginData")
     public void testCorrectUserNameAndIncorrectPassword(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
+
         loginPage
                 .goTo()
                 .enterUsername(loginDto.getUserName())
                 .enterPassword(loginDto.getPassword())
                 .clickLogin();
 
-        assertThat(loginPage.getErrorMessage()).isEqualTo(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(testName = "TC-4", dataProvider = "loginData")
     public void testIncorrectUserNameAndIncorrectPassword(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
+
         loginPage
                 .goTo()
                 .enterUsername(loginDto.getUserName())
                 .enterPassword(loginDto.getPassword())
                 .clickLogin();
 
-        assertThat(loginPage.getErrorMessage()).isEqualTo(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(testName = "TC-5", dataProvider = "loginData")
     public void testBlankUserName(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
         loginPage.goTo().enterPassword(loginDto.getPassword()).clickLogin();
 
-        assertThat(loginPage.getErrorMessage()).isEqualTo(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(testName = "TC-6", dataProvider = "loginData")
     public void testBlankPassword(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
         loginPage.goTo().enterUsername(loginDto.getUserName()).clickLogin();
 
-        assertThat(loginPage.getErrorMessage()).isEqualTo(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(testName = "TC-7", dataProvider = "loginData")
     public void testLockedOutUser(final LoginData loginDto) {
+        loginPage = createInstance(LoginPage.class);
+
         loginPage
                 .goTo()
                 .enterUsername(loginDto.getUserName())
                 .enterPassword(loginDto.getPassword())
                 .clickLogin();
 
-        assertThat(loginPage.getErrorMessage()).isEqualTo(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 }

@@ -19,7 +19,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     testImplementation 'org.testng:testng:7.7.0'
-    testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 test {

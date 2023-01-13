@@ -1,5 +1,6 @@
 package io.github.tahanima.page.product;
 
+import com.microsoft.playwright.Locator;
 import io.github.tahanima.page.BasePage;
 
 /**
@@ -8,7 +9,7 @@ import io.github.tahanima.page.BasePage;
  * @author tahanima
  */
 public class ProductsPage extends BasePage {
-    public String getTitle() {
-        return page.locator(".title").textContent();
+    public Locator getTitleLocator() {
+        return page.locator(".title");
     }
 }

@@ -1,6 +1,7 @@
 package io.github.tahanima;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import io.github.tahanima.browser.BrowserManager;
@@ -16,9 +17,10 @@ import org.testng.annotations.Listeners;
  */
 @Listeners(TestListener.class)
 public abstract class BaseTest {
-    private final Playwright playwright = Playwright.create();
-    private final Browser browser = BrowserManager.browser(playwright);
-    private final Page page = browser.newPage();
+    protected Playwright playwright;
+    protected Browser browser;
+    protected BrowserContext browserContext;
+    protected Page page;
 
     public abstract void initialize();
 
@@ -28,11 +30,15 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void setup() {
+        playwright = Playwright.create();
+        browser = BrowserManager.browser(playwright);
+
         initialize();
     }
 
     @AfterClass
     public void teardown() {
+        browser.close();
         playwright.close();
     }
 }
