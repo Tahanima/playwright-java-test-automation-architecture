@@ -24,7 +24,7 @@ public abstract class BaseTest {
 
     public abstract void initialize();
 
-    protected <T extends BasePage> T createInstance(final Class<T> basePage) {
+    protected <T extends BasePage> T createInstance(Class<T> basePage) {
         return BasePageFactory.createInstance(page, basePage);
     }
 

@@ -19,7 +19,7 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
 public final class CsvDataProviderUtil {
     private CsvDataProviderUtil() {}
 
-    private static Object[][] convert(final ArrayList<ArrayList<? extends BaseData>> data) {
+    private static Object[][] convert(ArrayList<ArrayList<? extends BaseData>> data) {
         int noOfRows = data.size();
         Object[][] dataArray = new Object[noOfRows][1];
 
@@ -31,7 +31,7 @@ public final class CsvDataProviderUtil {
     }
 
     public static Object[][] processCsv(
-            final Class<? extends BaseData> clazz, String csvFilePath, final String testCaseId) {
+            Class<? extends BaseData> clazz, String csvFilePath, String testCaseId) {
         CsvParserSettings parserSettings = new CsvParserSettings();
         parserSettings.getFormat().setLineSeparator("\n");
         CsvRoutines routines = new CsvRoutines(parserSettings);

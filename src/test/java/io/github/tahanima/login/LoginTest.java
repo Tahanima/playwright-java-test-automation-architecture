@@ -24,7 +24,7 @@ public class LoginTest extends BaseTest {
     private LoginPage loginPage;
 
     @DataProvider(name = "loginData")
-    public static Object[][] getLoginData(final Method testMethod) {
+    public static Object[][] getLoginData(Method testMethod) {
         String testCaseId = testMethod.getAnnotation(Test.class).testName();
 
         return processCsv(LoginData.class, FILE_PATH, testCaseId);
@@ -45,7 +45,7 @@ public class LoginTest extends BaseTest {
     public void initialize() {}
 
     @AfterMethod
-    public void captureScreenshot(final ITestResult result) {
+    public void captureScreenshot(ITestResult result) {
         ITestNGMethod method = result.getMethod();
 
         if (ITestResult.FAILURE == result.getStatus()) {
@@ -54,7 +54,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-1", dataProvider = "loginData")
-    public void testCorrectUserNameAndCorrectPassword(final LoginData loginDto) {
+    public void testCorrectUserNameAndCorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
@@ -69,7 +69,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-2", dataProvider = "loginData")
-    public void testIncorrectUserNameAndCorrectPassword(final LoginData loginDto) {
+    public void testIncorrectUserNameAndCorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
@@ -82,7 +82,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-3", dataProvider = "loginData")
-    public void testCorrectUserNameAndIncorrectPassword(final LoginData loginDto) {
+    public void testCorrectUserNameAndIncorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
@@ -95,7 +95,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-4", dataProvider = "loginData")
-    public void testIncorrectUserNameAndIncorrectPassword(final LoginData loginDto) {
+    public void testIncorrectUserNameAndIncorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
@@ -108,7 +108,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-5", dataProvider = "loginData")
-    public void testBlankUserName(final LoginData loginDto) {
+    public void testBlankUserName(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
         loginPage.goTo().enterPassword(loginDto.getPassword()).clickLogin();
 
@@ -116,7 +116,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-6", dataProvider = "loginData")
-    public void testBlankPassword(final LoginData loginDto) {
+    public void testBlankPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
         loginPage.goTo().enterUsername(loginDto.getUserName()).clickLogin();
 
@@ -124,7 +124,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "TC-7", dataProvider = "loginData")
-    public void testLockedOutUser(final LoginData loginDto) {
+    public void testLockedOutUser(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage

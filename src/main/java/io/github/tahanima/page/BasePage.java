@@ -12,12 +12,12 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
 public class BasePage {
     protected Page page;
 
-    public void initialize(final Page page) {
+    public void setAndConfigurePage(Page page) {
         this.page = page;
         page.setDefaultTimeout(configuration().timeout());
     }
 
-    public void captureScreenshot(final String fileName) {
+    public void captureScreenshot(String fileName) {
         page.screenshot(
                 new Page.ScreenshotOptions()
                         .setPath(

@@ -3,12 +3,12 @@ package io.github.tahanima.config;
 import org.aeonbits.owner.Config;
 
 /**
- * Mapping interface for the global parameters contained within general.properties file.
+ * Mapping interface for the global parameters contained within config.properties file.
  *
  * @author tahanima
  */
 @Config.LoadPolicy(Config.LoadType.MERGE)
-@Config.Sources({"system:properties", "classpath:general.properties"})
+@Config.Sources({"system:properties", "classpath:config.properties"})
 public interface Configuration extends Config {
     /**
      * @return a string containing the browser name

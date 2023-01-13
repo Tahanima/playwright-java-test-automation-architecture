@@ -8,10 +8,10 @@ import com.microsoft.playwright.Page;
 public final class BasePageFactory {
     private BasePageFactory() {}
 
-    public static <T extends BasePage> T createInstance(final Page page, final Class<T> basePage) {
+    public static <T extends BasePage> T createInstance(Page page, Class<T> basePage) {
         try {
             BasePage instance = basePage.getDeclaredConstructor().newInstance();
-            instance.initialize(page);
+            instance.setAndConfigurePage(page);
 
             return basePage.cast(instance);
         } catch (Exception e) {

@@ -13,13 +13,13 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
 public enum BrowserFactory {
     CHROMIUM {
         @Override
-        public Browser initialize(final Playwright playwright) {
+        public Browser initialize(Playwright playwright) {
             return playwright.chromium().launch(options());
         }
     },
     FIREFOX {
         @Override
-        public Browser initialize(final Playwright playwright) {
+        public Browser initialize(Playwright playwright) {
             return playwright.firefox().launch(options());
         }
     };

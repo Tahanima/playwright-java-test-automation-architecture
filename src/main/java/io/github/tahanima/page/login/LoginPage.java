@@ -17,13 +17,13 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginPage enterUsername(final String username) {
+    public LoginPage enterUsername(String username) {
         page.fill("id=user-name", username);
 
         return this;
     }
 
-    public LoginPage enterPassword(final String password) {
+    public LoginPage enterPassword(String password) {
         page.fill("id=password", password);
 
         return this;

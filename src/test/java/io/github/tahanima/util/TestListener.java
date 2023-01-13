@@ -18,7 +18,7 @@ public class TestListener implements ITestListener {
     private static final ExtentReports REPORT = ExtentReportManager.createReport();
 
     @Override
-    public void onTestSuccess(final ITestResult result) {
+    public void onTestSuccess(ITestResult result) {
         ITestNGMethod method = result.getMethod();
         String testData = result.getParameters()[0].toString();
 
@@ -29,7 +29,7 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onTestFailure(final ITestResult result) {
+    public void onTestFailure(ITestResult result) {
         ITestNGMethod method = result.getMethod();
         String testData = result.getParameters()[0].toString();
 
@@ -48,7 +48,7 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onTestSkipped(final ITestResult result) {
+    public void onTestSkipped(ITestResult result) {
         ITestNGMethod method = result.getMethod();
         String testData = result.getParameters()[0].toString();
 
@@ -59,7 +59,7 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onFinish(final ITestContext context) {
+    public void onFinish(ITestContext context) {
         REPORT.flush();
     }
 }

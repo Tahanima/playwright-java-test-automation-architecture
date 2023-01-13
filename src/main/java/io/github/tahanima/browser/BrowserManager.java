@@ -11,7 +11,7 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
 public final class BrowserManager {
     private BrowserManager() {}
 
-    public static Browser browser(final Playwright playwright) {
+    public static Browser browser(Playwright playwright) {
         return BrowserFactory.valueOf(configuration().browser().toUpperCase())
                 .initialize(playwright);
     }
