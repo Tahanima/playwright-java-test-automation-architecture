@@ -75,7 +75,7 @@ The project is structured as follows:
    │  │           └─ report
    │  │              └─ ExtentReportManager.java
    │  └─ resources
-   │     └─ general.properties
+   │     └─ config.properties
    └─ test
       ├─ java
       │  └─ io
@@ -102,7 +102,7 @@ The project is structured as follows:
 - [Workflow](#workflow)
 
 ### Config
-The project uses [general.properties](src/main/resources/general.properties) file to map all the global parameters such as browser and base url. All the relevant classes to read the parameters are provided in the [config](src/main/java/io/github/tahanima/config) package.
+The project uses [config.properties](src/main/resources/config.properties) file to map all the global parameters such as browser and base url. All the relevant classes to read the parameters are provided in the [config](src/main/java/io/github/tahanima/config) package.
 
 ### Data
 The project reads test data from csv files. The test data properties are modeled in terms of entities and the `data` package handles this. For convenience, there is an example class - [LoginData.java](src/main/java/io/github/tahanima/data/login/LoginData.java) to demonstrate the usage.
