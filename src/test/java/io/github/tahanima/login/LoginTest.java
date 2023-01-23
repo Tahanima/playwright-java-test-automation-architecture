@@ -30,13 +30,13 @@ public class LoginTest extends BaseTest {
         return processCsv(LoginData.class, FILE_PATH, testCaseId);
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void createBrowserContextAndPage() {
         browserContext = browser.newContext();
         page = browserContext.newPage();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void closeBrowserContext() {
         browserContext.close();
     }
