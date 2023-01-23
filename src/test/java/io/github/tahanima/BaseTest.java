@@ -28,7 +28,7 @@ public abstract class BaseTest {
         return BasePageFactory.createInstance(page, basePage);
     }
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setup() {
         playwright = Playwright.create();
         browser = BrowserManager.browser(playwright);
@@ -36,7 +36,7 @@ public abstract class BaseTest {
         initialize();
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void teardown() {
         browser.close();
         playwright.close();

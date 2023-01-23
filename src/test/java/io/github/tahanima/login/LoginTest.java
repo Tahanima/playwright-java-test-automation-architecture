@@ -53,7 +53,10 @@ public class LoginTest extends BaseTest {
         }
     }
 
-    @Test(testName = "TC-1", dataProvider = "loginData")
+    @Test(
+            testName = "TC-1",
+            dataProvider = "loginData",
+            groups = {"smoke", "regression"})
     public void testCorrectUserNameAndCorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
@@ -68,7 +71,10 @@ public class LoginTest extends BaseTest {
         assertThat(productsPage.getTitleLocator()).hasText("Products");
     }
 
-    @Test(testName = "TC-2", dataProvider = "loginData")
+    @Test(
+            testName = "TC-2",
+            dataProvider = "loginData",
+            groups = {"regression"})
     public void testIncorrectUserNameAndCorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
@@ -81,7 +87,10 @@ public class LoginTest extends BaseTest {
         assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(testName = "TC-3", dataProvider = "loginData")
+    @Test(
+            testName = "TC-3",
+            dataProvider = "loginData",
+            groups = {"regression"})
     public void testCorrectUserNameAndIncorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
@@ -94,7 +103,10 @@ public class LoginTest extends BaseTest {
         assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(testName = "TC-4", dataProvider = "loginData")
+    @Test(
+            testName = "TC-4",
+            dataProvider = "loginData",
+            groups = {"regression"})
     public void testIncorrectUserNameAndIncorrectPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
@@ -107,7 +119,10 @@ public class LoginTest extends BaseTest {
         assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(testName = "TC-5", dataProvider = "loginData")
+    @Test(
+            testName = "TC-5",
+            dataProvider = "loginData",
+            groups = {"regression"})
     public void testBlankUserName(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
         loginPage.goTo().enterPassword(loginDto.getPassword()).clickLogin();
@@ -115,7 +130,10 @@ public class LoginTest extends BaseTest {
         assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(testName = "TC-6", dataProvider = "loginData")
+    @Test(
+            testName = "TC-6",
+            dataProvider = "loginData",
+            groups = {"regression"})
     public void testBlankPassword(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
         loginPage.goTo().enterUsername(loginDto.getUserName()).clickLogin();
@@ -123,7 +141,10 @@ public class LoginTest extends BaseTest {
         assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(testName = "TC-7", dataProvider = "loginData")
+    @Test(
+            testName = "TC-7",
+            dataProvider = "loginData",
+            groups = {"regression"})
     public void testLockedOutUser(LoginData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
