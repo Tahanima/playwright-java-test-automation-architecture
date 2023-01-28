@@ -1,9 +1,9 @@
-package io.github.tahanima.login;
+package io.github.tahanima.e2e.login;
 
-import io.github.tahanima.BaseTest;
+import io.github.tahanima.e2e.BaseE2ETest;
 import io.github.tahanima.data.login.LoginData;
-import io.github.tahanima.page.login.LoginPage;
-import io.github.tahanima.page.product.ProductsPage;
+import io.github.tahanima.pages.login.LoginPage;
+import io.github.tahanima.pages.product.ProductsPage;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -14,12 +14,12 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import static io.github.tahanima.util.CsvDataProviderUtil.processCsv;
+import static io.github.tahanima.utils.CsvDataProviderUtils.processCsv;
 
 /**
  * @author tahanima
  */
-public class LoginTest extends BaseTest {
+public class LoginE2ETest extends BaseE2ETest {
     private static final String FILE_PATH = "login/login.csv";
     private LoginPage loginPage;
 

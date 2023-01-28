@@ -1,13 +1,13 @@
-package io.github.tahanima;
+package io.github.tahanima.e2e;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import io.github.tahanima.browser.BrowserManager;
-import io.github.tahanima.page.BasePage;
-import io.github.tahanima.page.BasePageFactory;
-import io.github.tahanima.util.TestListener;
+import io.github.tahanima.pages.BasePage;
+import io.github.tahanima.pages.BasePageFactory;
+import io.github.tahanima.utils.TestListener;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -16,7 +16,7 @@ import org.testng.annotations.Listeners;
  * @author tahanima
  */
 @Listeners(TestListener.class)
-public abstract class BaseTest {
+public abstract class BaseE2ETest {
     protected Playwright playwright;
     protected Browser browser;
     protected BrowserContext browserContext;

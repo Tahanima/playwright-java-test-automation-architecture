@@ -1,7 +1,7 @@
-package io.github.tahanima.page.login;
+package io.github.tahanima.pages.login;
 
 import com.microsoft.playwright.Locator;
-import io.github.tahanima.page.BasePage;
+import io.github.tahanima.pages.BasePage;
 
 import static io.github.tahanima.config.ConfigurationManager.configuration;
 

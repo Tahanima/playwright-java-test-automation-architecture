@@ -1,4 +1,4 @@
-package io.github.tahanima.util;
+package io.github.tahanima.utils;
 
 import com.univocity.parsers.csv.CsvParserSettings;
 import com.univocity.parsers.csv.CsvRoutines;
@@ -16,8 +16,8 @@ import static io.github.tahanima.config.ConfigurationManager.configuration;
 /**
  * @author tahanima
  */
-public final class CsvDataProviderUtil {
-    private CsvDataProviderUtil() {}
+public final class CsvDataProviderUtils {
+    private CsvDataProviderUtils() {}
 
     private static Object[][] convert(ArrayList<ArrayList<? extends BaseData>> data) {
         int noOfRows = data.size();

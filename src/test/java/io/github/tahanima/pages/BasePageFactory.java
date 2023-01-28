@@ -1,4 +1,4 @@
-package io.github.tahanima.page;
+package io.github.tahanima.pages;
 
 import com.microsoft.playwright.Page;
 
