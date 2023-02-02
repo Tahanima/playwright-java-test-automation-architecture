@@ -1,7 +1,7 @@
 package io.github.tahanima.e2e.login;
 
-import io.github.tahanima.e2e.BaseE2ETest;
 import io.github.tahanima.data.login.LoginData;
+import io.github.tahanima.e2e.BaseE2ETest;
 import io.github.tahanima.pages.login.LoginPage;
 import io.github.tahanima.pages.product.ProductsPage;
 import org.testng.ITestNGMethod;
@@ -37,21 +37,18 @@ public class LoginE2ETest extends BaseE2ETest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void closeBrowserContext() {
-        browserContext.close();
-    }
-
-    @Override
-    public void initialize() {}
-
-    @AfterMethod
-    public void captureScreenshot(ITestResult result) {
+    public void captureScreenshotAndCloseBrowserContext(ITestResult result) {
         ITestNGMethod method = result.getMethod();
 
         if (ITestResult.FAILURE == result.getStatus()) {
             loginPage.captureScreenshot(method.getMethodName());
         }
+
+        browserContext.close();
     }
+
+    @Override
+    public void initialize() {}
 
     @Test(
             testName = "TC-1",
