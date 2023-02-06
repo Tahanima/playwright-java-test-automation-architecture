@@ -37,7 +37,7 @@ public class LoginE2ETest extends BaseE2ETest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void captureScreenshotAndCloseBrowserContext(ITestResult result) {
+    public void captureScreenshotOnFailureAndCloseBrowserContext(ITestResult result) {
         ITestNGMethod method = result.getMethod();
 
         if (ITestResult.FAILURE == result.getStatus()) {
