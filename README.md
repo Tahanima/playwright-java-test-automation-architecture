@@ -46,8 +46,6 @@ The project is structured as follows:
 │     └─ gradle-wrapper.properties
 ├─ gradlew
 ├─ gradlew.bat
-├─ script
-│  └─ install_chrome.sh
 ├─ settings.gradle
 └─ src
    └─ test
