@@ -9,25 +9,34 @@ repositories {
     mavenCentral()
 }
 
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 dependencies {
     implementation 'org.aeonbits.owner:owner:1.0.12'
-    implementation 'com.aventstack:extentreports:5.0.9'
     implementation 'com.univocity:univocity-parsers:2.9.1'
-    implementation 'com.microsoft.playwright:playwright:1.28.1'
+    implementation 'com.aventstack:extentreports:5.0.9'
+    implementation 'com.microsoft.playwright:playwright:1.31.0'
     implementation 'org.slf4j:slf4j-api:2.0.6'
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.24'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
 
-    testImplementation 'org.testng:testng:7.7.0'
+    testImplementation 'org.testng:testng:7.7.1'
     testImplementation 'org.slf4j:slf4j-simple:2.0.6'
 }
 
 test {
     systemProperties = System.getProperties() as Map<String, ?>
     def groups = System.getProperty('groups', 'regression')
+    def thread = System.getProperty('thread', '5')
 
     useTestNG() {
         includeGroups groups
+        parallel 'classes'
+        threadCount thread as int
     }
 }

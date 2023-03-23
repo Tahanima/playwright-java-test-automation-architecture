@@ -1,6 +1,5 @@
 package io.github.tahanima.config;
 
-import io.github.tahanima.config.Configuration;
 import org.aeonbits.owner.ConfigCache;
 
 /**

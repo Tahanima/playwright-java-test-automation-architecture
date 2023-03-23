@@ -16,13 +16,11 @@ import org.testng.annotations.Listeners;
  * @author tahanima
  */
 @Listeners(TestListener.class)
-public abstract class BaseE2ETest {
+public class BaseE2ETest {
     protected Playwright playwright;
     protected Browser browser;
     protected BrowserContext browserContext;
     protected Page page;
-
-    public abstract void initialize();
 
     protected <T extends BasePage> T createInstance(Class<T> basePage) {
         return BasePageFactory.createInstance(page, basePage);
@@ -32,8 +30,6 @@ public abstract class BaseE2ETest {
     public void setup() {
         playwright = Playwright.create();
         browser = BrowserManager.browser(playwright);
-
-        initialize();
     }
 
     @AfterClass(alwaysRun = true)

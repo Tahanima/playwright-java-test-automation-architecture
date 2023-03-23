@@ -47,9 +47,6 @@ public class LoginE2ETest extends BaseE2ETest {
         browserContext.close();
     }
 
-    @Override
-    public void initialize() {}
-
     @Test(
             testName = "TC-1",
             dataProvider = "loginData",
