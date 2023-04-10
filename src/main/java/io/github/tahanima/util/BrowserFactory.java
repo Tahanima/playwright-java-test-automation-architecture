@@ -1,11 +1,11 @@
-package io.github.tahanima.browser;
+package io.github.tahanima.util;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
 import com.microsoft.playwright.Playwright;
-
-import static io.github.tahanima.config.ConfigurationManager.configuration;
 
 /**
  * @author tahanima
@@ -26,8 +26,8 @@ public enum BrowserFactory {
 
     public LaunchOptions options() {
         return new BrowserType.LaunchOptions()
-                .setHeadless(configuration().headless())
-                .setSlowMo(configuration().slowMotion());
+                .setHeadless(config().headless())
+                .setSlowMo(config().slowMotion());
     }
 
     public abstract Browser initialize(Playwright playwright);

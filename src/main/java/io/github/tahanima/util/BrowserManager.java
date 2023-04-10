@@ -1,9 +1,9 @@
-package io.github.tahanima.browser;
+package io.github.tahanima.util;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Playwright;
-
-import static io.github.tahanima.config.ConfigurationManager.configuration;
 
 /**
  * @author tahanima
@@ -12,7 +12,7 @@ public final class BrowserManager {
     private BrowserManager() {}
 
     public static Browser browser(Playwright playwright) {
-        return BrowserFactory.valueOf(configuration().browser().toUpperCase())
+        return BrowserFactory.valueOf(config().browser().toUpperCase())
                 .initialize(playwright);
     }
 }

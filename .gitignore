@@ -16,4 +16,4 @@ out
 *.iml
 atlassian-ide-plugin.xml
 
-report
+testoutput

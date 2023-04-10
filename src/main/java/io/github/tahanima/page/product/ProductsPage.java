@@ -1,7 +1,8 @@
-package io.github.tahanima.pages.product;
+package io.github.tahanima.page.product;
 
 import com.microsoft.playwright.Locator;
-import io.github.tahanima.pages.BasePage;
+
+import io.github.tahanima.page.BasePage;
 
 /**
  * This class captures only those features needed to support test functionalities of the login page.

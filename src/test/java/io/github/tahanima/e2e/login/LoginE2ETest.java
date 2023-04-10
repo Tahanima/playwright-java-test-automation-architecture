@@ -1,9 +1,14 @@
 package io.github.tahanima.e2e.login;
 
-import io.github.tahanima.data.login.LoginData;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+import static io.github.tahanima.util.DataProviderUtils.processCsv;
+
+import io.github.tahanima.data.login.LoginTestData;
 import io.github.tahanima.e2e.BaseE2ETest;
-import io.github.tahanima.pages.login.LoginPage;
-import io.github.tahanima.pages.product.ProductsPage;
+import io.github.tahanima.page.login.LoginPage;
+import io.github.tahanima.page.product.ProductsPage;
+
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -13,9 +18,6 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import static io.github.tahanima.utils.CsvDataProviderUtils.processCsv;
-
 /**
  * @author tahanima
  */
@@ -24,10 +26,10 @@ public class LoginE2ETest extends BaseE2ETest {
     private LoginPage loginPage;
 
     @DataProvider(name = "loginData")
-    public static Object[][] getLoginData(Method testMethod) {
+    public Object[][] getLoginData(Method testMethod) {
         String testCaseId = testMethod.getAnnotation(Test.class).testName();
 
-        return processCsv(LoginData.class, FILE_PATH, testCaseId);
+        return processCsv(LoginTestData.class, getTestDataFilePath(FILE_PATH), testCaseId);
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -41,7 +43,12 @@ public class LoginE2ETest extends BaseE2ETest {
         ITestNGMethod method = result.getMethod();
 
         if (ITestResult.FAILURE == result.getStatus()) {
-            loginPage.captureScreenshot(method.getMethodName());
+            loginPage.captureScreenshot(
+                    String.format(
+                            "%s_%s_%s",
+                            method.getRealClass().getSimpleName(),
+                            method.getMethodName(),
+                            method.getParameterInvocationCount()));
         }
 
         browserContext.close();
@@ -51,14 +58,14 @@ public class LoginE2ETest extends BaseE2ETest {
             testName = "TC-1",
             dataProvider = "loginData",
             groups = {"smoke", "regression"})
-    public void testCorrectUserNameAndCorrectPassword(LoginData loginDto) {
+    public void testCorrectUserNameAndCorrectPassword(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
-                .goTo()
-                .enterUsername(loginDto.getUserName())
-                .enterPassword(loginDto.getPassword())
-                .clickLogin();
+                .navigateToUrl()
+                .fillUsernameInTextBox(loginDto.getUserName())
+                .fillPasswordInTextBox(loginDto.getPassword())
+                .clickOnLoginButton();
 
         ProductsPage productsPage = createInstance(ProductsPage.class);
 
@@ -69,85 +76,91 @@ public class LoginE2ETest extends BaseE2ETest {
             testName = "TC-2",
             dataProvider = "loginData",
             groups = {"regression"})
-    public void testIncorrectUserNameAndCorrectPassword(LoginData loginDto) {
+    public void testIncorrectUserNameAndCorrectPassword(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
-                .goTo()
-                .enterUsername(loginDto.getUserName())
-                .enterPassword(loginDto.getPassword())
-                .clickLogin();
+                .navigateToUrl()
+                .fillUsernameInTextBox(loginDto.getUserName())
+                .fillPasswordInTextBox(loginDto.getPassword())
+                .clickOnLoginButton();
 
-        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(
             testName = "TC-3",
             dataProvider = "loginData",
             groups = {"regression"})
-    public void testCorrectUserNameAndIncorrectPassword(LoginData loginDto) {
+    public void testCorrectUserNameAndIncorrectPassword(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
-                .goTo()
-                .enterUsername(loginDto.getUserName())
-                .enterPassword(loginDto.getPassword())
-                .clickLogin();
+                .navigateToUrl()
+                .fillUsernameInTextBox(loginDto.getUserName())
+                .fillPasswordInTextBox(loginDto.getPassword())
+                .clickOnLoginButton();
 
-        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(
             testName = "TC-4",
             dataProvider = "loginData",
             groups = {"regression"})
-    public void testIncorrectUserNameAndIncorrectPassword(LoginData loginDto) {
+    public void testIncorrectUserNameAndIncorrectPassword(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
-                .goTo()
-                .enterUsername(loginDto.getUserName())
-                .enterPassword(loginDto.getPassword())
-                .clickLogin();
+                .navigateToUrl()
+                .fillUsernameInTextBox(loginDto.getUserName())
+                .fillPasswordInTextBox(loginDto.getPassword())
+                .clickOnLoginButton();
 
-        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(
             testName = "TC-5",
             dataProvider = "loginData",
             groups = {"regression"})
-    public void testBlankUserName(LoginData loginDto) {
+    public void testBlankUserName(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
-        loginPage.goTo().enterPassword(loginDto.getPassword()).clickLogin();
+        loginPage
+                .navigateToUrl()
+                .fillPasswordInTextBox(loginDto.getPassword())
+                .clickOnLoginButton();
 
-        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(
             testName = "TC-6",
             dataProvider = "loginData",
             groups = {"regression"})
-    public void testBlankPassword(LoginData loginDto) {
+    public void testBlankPassword(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
-        loginPage.goTo().enterUsername(loginDto.getUserName()).clickLogin();
+        loginPage
+                .navigateToUrl()
+                .fillUsernameInTextBox(loginDto.getUserName())
+                .clickOnLoginButton();
 
-        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
     @Test(
             testName = "TC-7",
             dataProvider = "loginData",
             groups = {"regression"})
-    public void testLockedOutUser(LoginData loginDto) {
+    public void testLockedOutUser(LoginTestData loginDto) {
         loginPage = createInstance(LoginPage.class);
 
         loginPage
-                .goTo()
-                .enterUsername(loginDto.getUserName())
-                .enterPassword(loginDto.getPassword())
-                .clickLogin();
+                .navigateToUrl()
+                .fillUsernameInTextBox(loginDto.getUserName())
+                .fillPasswordInTextBox(loginDto.getPassword())
+                .clickOnLoginButton();
 
-        assertThat(loginPage.getErrorMessageLocator()).hasText(loginDto.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 }
