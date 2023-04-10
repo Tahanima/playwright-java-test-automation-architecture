@@ -1,4 +1,4 @@
-# Playwright Test Automation Boilerplate
+# Playwright Java Test Automation Architecture
 
 Ready-to-use UI Test Automation Architecture using Java and Playwright.
 
@@ -6,10 +6,10 @@ Ready-to-use UI Test Automation Architecture using Java and Playwright.
 
 In order to use the framework:
 
-1. [Fork](https://github.com/Tahanima/playwright-test-automation-boilerplate/fork) the repository.
+1. [Fork](https://github.com/Tahanima/playwright-java-test-automation-architecture/fork) the repository.
 2. Clone, i.e, download your copy of the repository to your local machine using
 ```
-git clone https://github.com/[your_username]/playwright-test-automation-boilerplate.git
+git clone https://github.com/[your_username]/playwright-java-test-automation-architecture.git
 ```
 3. Import the project in [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
 4. Make your desired changes.
@@ -33,11 +33,12 @@ The project uses the following:
 The project is structured as follows:
 
 ```bash
-📦 playwright-test-automation-boilerplate
+📦 playwright-java-test-automation-architecture
 ├─ .github
 │  └─ workflows
 │     └─ test-execution.yml
 ├─ .gitignore
+├─ LICENSE
 ├─ README.md
 ├─ build.gradle
 ├─ gradle
@@ -48,65 +49,46 @@ The project is structured as follows:
 ├─ gradlew.bat
 ├─ settings.gradle
 └─ src
+   ├─ main
+   │  ├─ java
+   │  │  └─ io
+   │  │     └─ github
+   │  │        └─ tahanima
+   │  │           ├─ config
+   │  │           │  ├─ Configuration.java
+   │  │           │  └─ ConfigurationManager.java
+   │  │           ├─ data
+   │  │           │  ├─ BaseTestData.java
+   │  │           │  └─ login
+   │  │           │     └─ LoginTestData.java
+   │  │           ├─ page
+   │  │           │  ├─ BasePage.java
+   │  │           │  ├─ BasePageFactory.java
+   │  │           │  ├─ login
+   │  │           │  │  └─ LoginPage.java
+   │  │           │  └─ product
+   │  │           │     └─ ProductsPage.java
+   │  │           ├─ report
+   │  │           │  └─ ExtentReportManager.java
+   │  │           └─ util
+   │  │              ├─ BrowserFactory.java
+   │  │              └─ BrowserManager.java
+   │  └─ resources
+   │     └─ config.properties
    └─ test
       ├─ java
       │  └─ io
       │     └─ github
       │        └─ tahanima
-      │           ├─ browser
-      │           │  ├─ BrowserFactory.java
-      │           │  └─ BrowserManager.java
-      │           ├─ config
-      │           │  ├─ Configuration.java
-      │           │  └─ ConfigurationManager.java
-      │           ├─ data
-      │           │  ├─ BaseData.java
-      │           │  └─ login
-      │           │     └─ LoginData.java
       │           ├─ e2e
       │           │  ├─ BaseE2ETest.java
       │           │  └─ login
       │           │     └─ LoginE2ETest.java
-      │           ├─ pages
-      │           │  ├─ BasePage.java
-      │           │  ├─ BasePageFactory.java
-      │           │  ├─ login
-      │           │  │  └─ LoginPage.java
-      │           │  └─ product
-      │           │     └─ ProductsPage.java
-      │           └─ utils
-      │              ├─ CsvDataProviderUtils.java
-      │              ├─ ExtentReportManager.java
+      │           └─ util
+      │              ├─ DataProviderUtils.java
       │              └─ TestListener.java
       └─ resources
-         ├─ config.properties
-         └─ testData
+         └─ testdata
             └─ login
                └─ login.csv
 ```
-
-## Project Components
-- [Config](#config)
-- [Data](#data)
-- [Page](#page)
-- [Report](#report)
-- [Test](#test)
-- [Workflow](#workflow)
-
-### Config
-The project uses [config.properties](src/test/resources/config.properties) file to map all the global parameters such as browser and base url. All the relevant classes to read the parameters are provided in the [config](src/test/java/io/github/tahanima/config) package.
-
-### Data
-The project reads test data from csv files. The test data properties are modeled in terms of entities and the `data` package handles this. For convenience, there is an example class - [LoginData.java](src/test/java/io/github/tahanima/data/login/LoginData.java) to demonstrate the usage.
-
-### Page
-The project uses Page Object Model to capture all the relevant UI components and functionalities of a web page. The [pages](src/test/java/io/github/tahanima/pages) package provides all the classes to achieve this. For convenience, there is an example class - [LoginPage.java](src/test/java/io/github/tahanima/pages/login/LoginPage.java) to demonstrate the usage.
-
-### Report
-The project uses *Extent Reports* to provide test reporting functionalities.
-
-### Test
-[LoginE2ETest.java](src/test/java/io/github/tahanima/e2e/login/LoginE2ETest.java) demonstrates an example test script.
-
-### Workflow
-The project uses GitHub Actions to run the playwright tests when an update is made to the `main` branch of the repo in GitHub.
