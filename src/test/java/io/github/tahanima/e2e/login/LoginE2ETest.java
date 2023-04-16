@@ -69,7 +69,7 @@ public class LoginE2ETest extends BaseE2ETest {
 
         ProductsPage productsPage = createInstance(ProductsPage.class);
 
-        assertThat(productsPage.getTitleLocator()).hasText("Products");
+        assertThat(productsPage.getTitle()).hasText("Products");
     }
 
     @Test(

@@ -10,7 +10,7 @@ import io.github.tahanima.page.BasePage;
  * @author tahanima
  */
 public class ProductsPage extends BasePage {
-    public Locator getTitleLocator() {
+    public Locator getTitle() {
         return page.locator(".title");
     }
 }
