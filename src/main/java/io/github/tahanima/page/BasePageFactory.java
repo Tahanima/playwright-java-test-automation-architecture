@@ -6,6 +6,7 @@ import com.microsoft.playwright.Page;
  * @author tahanima
  */
 public final class BasePageFactory {
+
     private BasePageFactory() {}
 
     public static <T extends BasePage> T createInstance(Page page, Class<T> basePage) {

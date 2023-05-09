@@ -8,13 +8,12 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * This class captures all the test data properties required for the login page.
- *
  * @author tahanima
  */
 @Getter
 @ToString(callSuper = true)
 public class LoginTestData extends BaseTestData {
+
     @Parsed(field = "User Name", defaultNullRead = "")
     private String userName;
 

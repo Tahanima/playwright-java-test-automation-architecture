@@ -2,65 +2,51 @@ package io.github.tahanima.e2e.login;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-import static io.github.tahanima.util.DataProviderUtils.processCsv;
-
 import io.github.tahanima.data.login.LoginTestData;
 import io.github.tahanima.e2e.BaseE2ETest;
 import io.github.tahanima.page.login.LoginPage;
 import io.github.tahanima.page.product.ProductsPage;
+import io.github.tahanima.util.DataSource;
+import io.qameta.allure.*;
 
-import org.testng.ITestNGMethod;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
-import java.lang.reflect.Method;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 
 /**
  * @author tahanima
  */
-public class LoginE2ETest extends BaseE2ETest {
-    private static final String FILE_PATH = "login/login.csv";
+class LoginE2ETest extends BaseE2ETest {
+
     private LoginPage loginPage;
 
-    @DataProvider(name = "loginData")
-    public Object[][] getLoginData(Method testMethod) {
-        String testCaseId = testMethod.getAnnotation(Test.class).testName();
-
-        return processCsv(LoginTestData.class, getTestDataFilePath(FILE_PATH), testCaseId);
-    }
-
-    @BeforeMethod(alwaysRun = true)
-    public void createBrowserContextAndPage() {
+    @BeforeEach
+    public void initialize() {
         browserContext = browser.newContext();
         page = browserContext.newPage();
+
+        loginPage = createInstance(LoginPage.class);
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void captureScreenshotOnFailureAndCloseBrowserContext(ITestResult result) {
-        ITestNGMethod method = result.getMethod();
+    @Attachment(value = "Failed Test Case Screenshot", type = "image/png")
+    protected byte[] captureScreenshotOnFailure() {
+        return loginPage.captureScreenshot();
+    }
 
-        if (ITestResult.FAILURE == result.getStatus()) {
-            loginPage.captureScreenshot(
-                    String.format(
-                            "%s_%s_%s",
-                            method.getRealClass().getSimpleName(),
-                            method.getMethodName(),
-                            method.getParameterInvocationCount()));
-        }
-
+    @AfterEach
+    public void closeBrowserContext() {
         browserContext.close();
     }
 
-    @Test(
-            testName = "TC-1",
-            dataProvider = "loginData",
-            groups = {"smoke", "regression"})
-    public void testCorrectUserNameAndCorrectPassword(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
-
+    @Tag("smoke")
+    @Tag("regression")
+    @Feature("Login page")
+    @Story("User enters correct login credentials")
+    @Owner("Tahanima Chowdhury")
+    @Description(
+            "Test that verifies user gets redirected to 'Products' page after submitting correct login credentials")
+    @DataSource(testCaseId = "TC-1", filePath = "login/login.csv", clazz = LoginTestData.class)
+    void testCorrectLoginCredentials(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
                 .fillUsernameInTextBox(loginDto.getUserName())
@@ -72,13 +58,14 @@ public class LoginE2ETest extends BaseE2ETest {
         assertThat(productsPage.getTitle()).hasText("Products");
     }
 
-    @Test(
-            testName = "TC-2",
-            dataProvider = "loginData",
-            groups = {"regression"})
-    public void testIncorrectUserNameAndCorrectPassword(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
-
+    @Tag("regression")
+    @Feature("Login page")
+    @Story("User enters incorrect login credentials")
+    @Owner("Tahanima Chowdhury")
+    @Description(
+            "Test that verifies user gets error message after submitting incorrect login credentials")
+    @DataSource(testCaseId = "TC-2", filePath = "login/login.csv", clazz = LoginTestData.class)
+    void testIncorrectLoginCredentials(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
                 .fillUsernameInTextBox(loginDto.getUserName())
@@ -88,44 +75,14 @@ public class LoginE2ETest extends BaseE2ETest {
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(
-            testName = "TC-3",
-            dataProvider = "loginData",
-            groups = {"regression"})
-    public void testCorrectUserNameAndIncorrectPassword(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
-
-        loginPage
-                .navigateToUrl()
-                .fillUsernameInTextBox(loginDto.getUserName())
-                .fillPasswordInTextBox(loginDto.getPassword())
-                .clickOnLoginButton();
-
-        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
-    }
-
-    @Test(
-            testName = "TC-4",
-            dataProvider = "loginData",
-            groups = {"regression"})
-    public void testIncorrectUserNameAndIncorrectPassword(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
-
-        loginPage
-                .navigateToUrl()
-                .fillUsernameInTextBox(loginDto.getUserName())
-                .fillPasswordInTextBox(loginDto.getPassword())
-                .clickOnLoginButton();
-
-        assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
-    }
-
-    @Test(
-            testName = "TC-5",
-            dataProvider = "loginData",
-            groups = {"regression"})
-    public void testBlankUserName(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
+    @Tag("regression")
+    @Feature("Login page")
+    @Story("User keeps the username blank")
+    @Owner("Tahanima Chowdhury")
+    @Description(
+            "Test that verifies user gets error message after submitting login credentials where the username is blank")
+    @DataSource(testCaseId = "TC-3", filePath = "login/login.csv", clazz = LoginTestData.class)
+    void testBlankUserName(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
                 .fillPasswordInTextBox(loginDto.getPassword())
@@ -134,12 +91,14 @@ public class LoginE2ETest extends BaseE2ETest {
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(
-            testName = "TC-6",
-            dataProvider = "loginData",
-            groups = {"regression"})
-    public void testBlankPassword(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
+    @Tag("regression")
+    @Feature("Login page")
+    @Story("User keeps the password blank")
+    @Owner("Tahanima Chowdhury")
+    @Description(
+            "Test that verifies user gets error message after submitting login credentials where the password is blank")
+    @DataSource(testCaseId = "TC-4", filePath = "login/login.csv", clazz = LoginTestData.class)
+    void testBlankPassword(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
                 .fillUsernameInTextBox(loginDto.getUserName())
@@ -148,13 +107,14 @@ public class LoginE2ETest extends BaseE2ETest {
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
     }
 
-    @Test(
-            testName = "TC-7",
-            dataProvider = "loginData",
-            groups = {"regression"})
-    public void testLockedOutUser(LoginTestData loginDto) {
-        loginPage = createInstance(LoginPage.class);
-
+    @Tag("regression")
+    @Feature("Login page")
+    @Story("User is locked out")
+    @Owner("Tahanima Chowdhury")
+    @Description(
+            "Test that verifies user gets error message after submitting login credentials for locked out user")
+    @DataSource(testCaseId = "TC-5", filePath = "login/login.csv", clazz = LoginTestData.class)
+    void testLockedOutUser(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
                 .fillUsernameInTextBox(loginDto.getUserName())

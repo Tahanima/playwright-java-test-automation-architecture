@@ -15,8 +15,9 @@ import java.util.ArrayList;
 /**
  * @author tahanima
  */
-public final class DataProviderUtils {
-    private DataProviderUtils() {}
+public final class CsvToPOJOMapper {
+
+    private CsvToPOJOMapper() {}
 
     private static Object[][] convertToArray(ArrayList<ArrayList<? extends BaseTestData>> data) {
         int noOfRows = data.size();
@@ -29,7 +30,7 @@ public final class DataProviderUtils {
         return dataArray;
     }
 
-    public static Object[][] processCsv(
+    public static Object[][] map(
             Class<? extends BaseTestData> clazz, String csvFilePath, String testCaseId) {
         CsvParserSettings parserSettings = new CsvParserSettings();
 

@@ -11,16 +11,23 @@ import com.microsoft.playwright.Playwright;
  * @author tahanima
  */
 public enum BrowserFactory {
+
     CHROMIUM {
         @Override
-        public Browser initialize(Playwright playwright) {
+        public Browser createInstance(Playwright playwright) {
             return playwright.chromium().launch(options());
         }
     },
     FIREFOX {
         @Override
-        public Browser initialize(Playwright playwright) {
+        public Browser createInstance(Playwright playwright) {
             return playwright.firefox().launch(options());
+        }
+    },
+    WEBKIT {
+        @Override
+        public Browser createInstance(Playwright playwright) {
+            return playwright.webkit().launch(options());
         }
     };
 
@@ -30,5 +37,5 @@ public enum BrowserFactory {
                 .setSlowMo(config().slowMotion());
     }
 
-    public abstract Browser initialize(Playwright playwright);
+    public abstract Browser createInstance(Playwright playwright);
 }

@@ -5,56 +5,27 @@ import org.aeonbits.owner.Config.LoadPolicy;
 import org.aeonbits.owner.Config.Sources;
 
 /**
- * Mapping interface for the global parameters contained within config.properties file.
- *
  * @author tahanima
  */
 @LoadPolicy(Config.LoadType.MERGE)
-@Sources({"system:properties", "classpath:config.properties"})
+@Sources({"system:properties", "classpath:general.properties", "classpath:allure.properties"})
 public interface Configuration extends Config {
-    /**
-     * @return a string containing the browser name
-     */
+
     String browser();
 
-    /**
-     * @return a string containing the base url of the AUT
-     */
     @Key("base.url")
     String baseUrl();
 
-    /**
-     * @return a boolean containing the choice whether the browser will run in headless mode
-     */
-    Boolean headless();
+    boolean headless();
 
-    /**
-     * @return an integer containing the slow motion value
-     */
     @Key("slow.motion")
     int slowMotion();
 
-    /**
-     * @return an integer containing the timeout value
-     */
-    @Key("timeout")
     int timeout();
 
-    /**
-     * @return a string containing the base path to store all the test data
-     */
     @Key("base.test.data.path")
     String baseTestDataPath();
 
-    /**
-     * @return a string containing the base path to store all the test reports
-     */
-    @Key("base.report.path")
-    String baseReportPath();
-
-    /**
-     * @return a string containing the base path to store all the failed test screenshots
-     */
-    @Key("base.screenshot.path")
-    String baseScreenshotPath();
+    @Key("allure.results.directory")
+    String allureResultsDir();
 }

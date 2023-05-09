@@ -9,10 +9,11 @@ import com.microsoft.playwright.Playwright;
  * @author tahanima
  */
 public final class BrowserManager {
+
     private BrowserManager() {}
 
     public static Browser browser(Playwright playwright) {
         return BrowserFactory.valueOf(config().browser().toUpperCase())
-                .initialize(playwright);
+                .createInstance(playwright);
     }
 }
