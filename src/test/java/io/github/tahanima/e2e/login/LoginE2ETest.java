@@ -21,7 +21,7 @@ class LoginE2ETest extends BaseE2ETest {
     private LoginPage loginPage;
 
     @BeforeEach
-    public void initialize() {
+    public void createBrowserContextAndPageAndLoginPageInstances() {
         browserContext = browser.newContext();
         page = browserContext.newPage();
 
@@ -34,7 +34,7 @@ class LoginE2ETest extends BaseE2ETest {
     }
 
     @AfterEach
-    public void closeBrowserContext() {
+    public void closeBrowserContextSession() {
         browserContext.close();
     }
 

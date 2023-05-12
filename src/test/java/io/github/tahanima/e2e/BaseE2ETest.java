@@ -17,9 +17,7 @@ import io.github.tahanima.page.BasePageFactory;
 import io.github.tahanima.util.BrowserManager;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -53,7 +51,7 @@ public abstract class BaseE2ETest {
     }
 
     @BeforeAll
-    public void setup() {
+    public void createPlaywrightAndBrowserInstancesAndSetupAllureEnvironment() {
         playwright = Playwright.create();
         browser = BrowserManager.browser(playwright);
 
@@ -68,7 +66,7 @@ public abstract class BaseE2ETest {
     }
 
     @AfterAll
-    public void teardown() {
+    public void closeBrowserAndPlaywrightSessions() {
         browser.close();
         playwright.close();
     }

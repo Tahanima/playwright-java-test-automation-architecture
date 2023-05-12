@@ -10,7 +10,7 @@ import io.qameta.allure.Step;
  */
 public class ProductsPage extends BasePage {
 
-    @Step
+    @Step("Get title of the 'Products' page")
     public Locator getTitle() {
         return page.locator(".title");
     }
