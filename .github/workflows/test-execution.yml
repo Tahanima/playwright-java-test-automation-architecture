@@ -52,4 +52,4 @@ jobs:
           context: 'Test report'
           state: 'success'
           sha: ${{ github.event.pull_request.head.sha }}
-          target_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
+          target_url: tahanima.github.io/playwright-java-test-automation-architecture/${{ github.run_number }}
