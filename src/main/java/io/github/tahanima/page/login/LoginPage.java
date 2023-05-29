@@ -19,15 +19,15 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("Fill <username> in 'Username' textbox")
-    public LoginPage fillUsernameInTextBox(String username) {
+    @Step("Type <username> into 'Username' textbox")
+    public LoginPage typeUsernameIntoTextBox(String username) {
         page.fill("id=user-name", username);
 
         return this;
     }
 
-    @Step("Fill <password> in 'Password' textbox")
-    public LoginPage fillPasswordInTextBox(String password) {
+    @Step("Type <password> into 'Password' textbox")
+    public LoginPage typePasswordIntoTextBox(String password) {
         page.fill("id=password", password);
 
         return this;

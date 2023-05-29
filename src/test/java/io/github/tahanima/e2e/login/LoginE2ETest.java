@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Tag;
  */
 class LoginE2ETest extends BaseE2ETest {
 
+    private final static String PATH = "login/login.csv";
     private LoginPage loginPage;
 
     @BeforeEach
@@ -45,12 +46,12 @@ class LoginE2ETest extends BaseE2ETest {
     @Owner("Tahanima Chowdhury")
     @Description(
             "Test that verifies user gets redirected to 'Products' page after submitting correct login credentials")
-    @DataSource(testCaseId = "TC-1", filePath = "login/login.csv", clazz = LoginTestData.class)
+    @DataSource(testCaseId = "TC-1", filePath = PATH, clazz = LoginTestData.class)
     void testCorrectLoginCredentials(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
-                .fillUsernameInTextBox(loginDto.getUserName())
-                .fillPasswordInTextBox(loginDto.getPassword())
+                .typeUsernameIntoTextBox(loginDto.getUserName())
+                .typePasswordIntoTextBox(loginDto.getPassword())
                 .clickOnLoginButton();
 
         ProductsPage productsPage = createInstance(ProductsPage.class);
@@ -64,12 +65,12 @@ class LoginE2ETest extends BaseE2ETest {
     @Owner("Tahanima Chowdhury")
     @Description(
             "Test that verifies user gets error message after submitting incorrect login credentials")
-    @DataSource(testCaseId = "TC-2", filePath = "login/login.csv", clazz = LoginTestData.class)
+    @DataSource(testCaseId = "TC-2", filePath = PATH, clazz = LoginTestData.class)
     void testIncorrectLoginCredentials(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
-                .fillUsernameInTextBox(loginDto.getUserName())
-                .fillPasswordInTextBox(loginDto.getPassword())
+                .typeUsernameIntoTextBox(loginDto.getUserName())
+                .typePasswordIntoTextBox(loginDto.getPassword())
                 .clickOnLoginButton();
 
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
@@ -81,11 +82,11 @@ class LoginE2ETest extends BaseE2ETest {
     @Owner("Tahanima Chowdhury")
     @Description(
             "Test that verifies user gets error message after submitting login credentials where the username is blank")
-    @DataSource(testCaseId = "TC-3", filePath = "login/login.csv", clazz = LoginTestData.class)
+    @DataSource(testCaseId = "TC-3", filePath = PATH, clazz = LoginTestData.class)
     void testBlankUserName(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
-                .fillPasswordInTextBox(loginDto.getPassword())
+                .typePasswordIntoTextBox(loginDto.getPassword())
                 .clickOnLoginButton();
 
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
@@ -97,11 +98,11 @@ class LoginE2ETest extends BaseE2ETest {
     @Owner("Tahanima Chowdhury")
     @Description(
             "Test that verifies user gets error message after submitting login credentials where the password is blank")
-    @DataSource(testCaseId = "TC-4", filePath = "login/login.csv", clazz = LoginTestData.class)
+    @DataSource(testCaseId = "TC-4", filePath = PATH, clazz = LoginTestData.class)
     void testBlankPassword(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
-                .fillUsernameInTextBox(loginDto.getUserName())
+                .typeUsernameIntoTextBox(loginDto.getUserName())
                 .clickOnLoginButton();
 
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());
@@ -113,12 +114,12 @@ class LoginE2ETest extends BaseE2ETest {
     @Owner("Tahanima Chowdhury")
     @Description(
             "Test that verifies user gets error message after submitting login credentials for locked out user")
-    @DataSource(testCaseId = "TC-5", filePath = "login/login.csv", clazz = LoginTestData.class)
+    @DataSource(testCaseId = "TC-5", filePath = PATH, clazz = LoginTestData.class)
     void testLockedOutUser(LoginTestData loginDto) {
         loginPage
                 .navigateToUrl()
-                .fillUsernameInTextBox(loginDto.getUserName())
-                .fillPasswordInTextBox(loginDto.getPassword())
+                .typeUsernameIntoTextBox(loginDto.getUserName())
+                .typePasswordIntoTextBox(loginDto.getPassword())
                 .clickOnLoginButton();
 
         assertThat(loginPage.getErrorMessage()).hasText(loginDto.getErrorMessage());

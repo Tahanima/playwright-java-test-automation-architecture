@@ -19,18 +19,7 @@ public final class CsvToPOJOMapper {
 
     private CsvToPOJOMapper() {}
 
-    private static Object[][] convertToArray(ArrayList<ArrayList<? extends BaseTestData>> data) {
-        int noOfRows = data.size();
-        Object[][] dataArray = new Object[noOfRows][1];
-
-        for (int i = 0; i < noOfRows; i++) {
-            dataArray[i][0] = data.get(i).get(0);
-        }
-
-        return dataArray;
-    }
-
-    public static Object[][] map(
+    public static Object[] map(
             Class<? extends BaseTestData> clazz, String csvFilePath, String testCaseId) {
         CsvParserSettings parserSettings = new CsvParserSettings();
 
@@ -41,24 +30,19 @@ public final class CsvToPOJOMapper {
 
         try (Reader inputReader =
                 new InputStreamReader(new FileInputStream(csvFilePath), StandardCharsets.UTF_8)) {
-            ArrayList<ArrayList<? extends BaseTestData>> testData = new ArrayList<>();
+            ArrayList<BaseTestData> testData = new ArrayList<>();
 
-            for (BaseTestData data : routines.iterate(clazz, inputReader)) {
-                if (data.getTestCaseId().equals(testCaseId)) {
-                    testData.add(
-                            new ArrayList<>() {
-                                {
-                                    add(data);
-                                }
+            routines.iterate(clazz, inputReader)
+                    .forEach(
+                            e -> {
+                                if (e.getTestCaseId().equals(testCaseId)) testData.add(e);
                             });
-                }
-            }
 
-            return convertToArray(testData);
+            return testData.toArray();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return new Object[0][0];
+        throw new NullPointerException("Couldn't provide test data");
     }
 }
