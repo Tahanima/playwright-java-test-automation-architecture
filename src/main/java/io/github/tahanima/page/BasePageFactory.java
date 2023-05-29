@@ -12,7 +12,7 @@ public final class BasePageFactory {
     public static <T extends BasePage> T createInstance(Page page, Class<T> basePage) {
         try {
             BasePage instance = basePage.getDeclaredConstructor().newInstance();
-            instance.setAndConfigurePage(page);
+            instance.setPage(page);
 
             return basePage.cast(instance);
         } catch (Exception e) {

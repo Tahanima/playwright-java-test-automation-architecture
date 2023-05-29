@@ -2,6 +2,8 @@ package io.github.tahanima.e2e.login;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+import static io.github.tahanima.config.ConfigurationManager.config;
+
 import io.github.tahanima.data.login.LoginTestData;
 import io.github.tahanima.e2e.BaseE2ETest;
 import io.github.tahanima.page.login.LoginPage;
@@ -25,6 +27,8 @@ class LoginE2ETest extends BaseE2ETest {
     public void createBrowserContextAndPageAndLoginPageInstances() {
         browserContext = browser.newContext();
         page = browserContext.newPage();
+        
+        page.setDefaultTimeout(config().timeout());
 
         loginPage = createInstance(LoginPage.class);
     }
