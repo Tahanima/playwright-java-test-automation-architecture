@@ -39,6 +39,7 @@ The project is structured as follows:
 ```bash
 📦 playwright-java-test-automation-architecture
 ├─ .github
+│  ├─ FUNDING.yml
 │  └─ workflows
 │     └─ test-execution.yml
 ├─ .gitignore
@@ -62,37 +63,45 @@ The project is structured as follows:
    │              │  ├─ Configuration.java
    │              │  └─ ConfigurationManager.java
    │              ├─ data
-   │              │  ├─ BaseTestData.java
-   │              │  └─ login
-   │              │     └─ LoginTestData.java
-   │              ├─ page
-   │              │  ├─ BasePage.java
+   │              │  ├─ BaseData.java
+   │              │  ├─ LoginData.java
+   │              │  └─ ProductsData.java
+   │              ├─ factory
    │              │  ├─ BasePageFactory.java
-   │              │  ├─ login
-   │              │  │  └─ LoginPage.java
-   │              │  └─ product
+   │              │  └─ BrowserFactory.java
+   │              ├─ ui
+   │              │  ├─ component
+   │              │  │  ├─ BaseComponent.java
+   │              │  │  ├─ Header.java
+   │              │  │  └─ SideNavMenu.java
+   │              │  └─ page
+   │              │     ├─ BasePage.java
+   │              │     ├─ LoginPage.java
    │              │     └─ ProductsPage.java
    │              └─ util
-   │                 ├─ BrowserFactory.java
    │                 └─ BrowserManager.java
    └─ test
       ├─ java
       │  └─ io
       │     └─ github
       │        └─ tahanima
+      │           ├─ annotation
+      │           │  ├─ DataSource.java
+      │           │  ├─ Regression.java
+      │           │  ├─ Smoke.java
+      │           │  └─ Validation.java
       │           ├─ e2e
       │           │  ├─ BaseE2ETest.java
-      │           │  └─ login
-      │           │     └─ LoginE2ETest.java
+      │           │  ├─ LoginE2ETest.java
+      │           │  └─ ProductsE2ETest.java
       │           └─ util
       │              ├─ CsvToPOJOMapper.java
-      │              ├─ DataArgumentsProvider.java
-      │              └─ DataSource.java
+      │              └─ DataArgumentsProvider.java
       └─ resources
          ├─ allure.properties
-         ├─ general.properties
+         ├─ config.properties
          ├─ junit-platform.properties
          └─ testdata
-            └─ login
-               └─ login.csv
+            ├─ login.csv
+            └─ products.csv
 ```
