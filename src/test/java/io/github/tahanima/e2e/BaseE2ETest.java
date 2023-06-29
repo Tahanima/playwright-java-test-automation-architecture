@@ -12,8 +12,9 @@ import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
-import io.github.tahanima.page.BasePage;
-import io.github.tahanima.page.BasePageFactory;
+import io.github.tahanima.factory.BasePageFactory;
+import io.github.tahanima.ui.page.BasePage;
+import io.github.tahanima.ui.page.LoginPage;
 import io.github.tahanima.util.BrowserManager;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +34,7 @@ public abstract class BaseE2ETest {
     protected Browser browser;
     protected BrowserContext browserContext;
     protected Page page;
+    protected LoginPage loginPage;
 
     @RegisterExtension
     AfterTestExecutionCallback callback =
@@ -53,7 +55,7 @@ public abstract class BaseE2ETest {
     @BeforeAll
     public void createPlaywrightAndBrowserInstancesAndSetupAllureEnvironment() {
         playwright = Playwright.create();
-        browser = BrowserManager.browser(playwright);
+        browser = BrowserManager.getBrowser(playwright);
 
         allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()

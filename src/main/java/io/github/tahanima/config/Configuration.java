@@ -8,7 +8,7 @@ import org.aeonbits.owner.Config.Sources;
  * @author tahanima
  */
 @LoadPolicy(Config.LoadType.MERGE)
-@Sources({"system:properties", "classpath:general.properties", "classpath:allure.properties"})
+@Sources({"system:properties", "classpath:config.properties", "classpath:allure.properties"})
 public interface Configuration extends Config {
 
     String browser();

@@ -3,7 +3,7 @@ package io.github.tahanima.util;
 import com.univocity.parsers.csv.CsvParserSettings;
 import com.univocity.parsers.csv.CsvRoutines;
 
-import io.github.tahanima.data.BaseTestData;
+import io.github.tahanima.data.BaseData;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,22 +20,22 @@ public final class CsvToPOJOMapper {
     private CsvToPOJOMapper() {}
 
     public static Object[] map(
-            Class<? extends BaseTestData> clazz, String csvFilePath, String testCaseId) {
-        CsvParserSettings parserSettings = new CsvParserSettings();
+            final Class<? extends BaseData> clazz, final String fileName, final String id) {
+        CsvParserSettings settings = new CsvParserSettings();
 
-        parserSettings.getFormat().setLineSeparator("\n");
-        parserSettings.trimValues(false);
+        settings.getFormat().setLineSeparator("\n");
+        settings.trimValues(false);
 
-        CsvRoutines routines = new CsvRoutines(parserSettings);
+        CsvRoutines routines = new CsvRoutines(settings);
 
-        try (Reader inputReader =
-                new InputStreamReader(new FileInputStream(csvFilePath), StandardCharsets.UTF_8)) {
-            ArrayList<BaseTestData> testData = new ArrayList<>();
+        try (Reader reader =
+                new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8)) {
+            ArrayList<BaseData> testData = new ArrayList<>();
 
-            routines.iterate(clazz, inputReader)
+            routines.iterate(clazz, reader)
                     .forEach(
                             e -> {
-                                if (e.getTestCaseId().equals(testCaseId)) testData.add(e);
+                                if (e.getTestCaseId().equals(id)) testData.add(e);
                             });
 
             return testData.toArray();

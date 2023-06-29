@@ -2,7 +2,8 @@ package io.github.tahanima.util;
 
 import static io.github.tahanima.config.ConfigurationManager.config;
 
-import io.github.tahanima.data.BaseTestData;
+import io.github.tahanima.annotation.DataSource;
+import io.github.tahanima.data.BaseData;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,20 +17,20 @@ import java.util.stream.Stream;
  */
 public class DataArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<DataSource> {
 
-    private String testCaseId;
-    private String filePath;
-    private Class<? extends BaseTestData> clazz;
+    private String id;
+    private String fileName;
+    private Class<? extends BaseData> clazz;
 
     @Override
-    public void accept(DataSource source) {
-        testCaseId = source.testCaseId();
-        filePath = config().baseTestDataPath() + source.filePath();
+    public void accept(final DataSource source) {
+        id = source.id();
+        fileName = config().baseTestDataPath() + source.fileName();
         clazz = source.clazz();
     }
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-        return Stream.of(CsvToPOJOMapper.map(clazz, filePath, testCaseId))
+    public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
+        return Stream.of(CsvToPOJOMapper.map(clazz, fileName, id))
                 .map(Arguments::of);
     }
 }

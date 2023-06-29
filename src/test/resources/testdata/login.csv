@@ -1,4 +1,4 @@
-Test Case ID,User Name,Password,Error Message
+Test Case ID,Username,Password,Error Message
 TC-1,standard_user,secret_sauce,
 TC-1,problem_user,secret_sauce,
 TC-1,performance_glitch_user,secret_sauce,

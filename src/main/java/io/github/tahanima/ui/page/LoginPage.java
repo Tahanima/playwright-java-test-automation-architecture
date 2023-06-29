@@ -1,33 +1,33 @@
-package io.github.tahanima.page.login;
+package io.github.tahanima.ui.page;
 
 import static io.github.tahanima.config.ConfigurationManager.config;
 
 import com.microsoft.playwright.Locator;
 
-import io.github.tahanima.page.BasePage;
+import io.github.tahanima.factory.BasePageFactory;
 import io.qameta.allure.Step;
 
 /**
  * @author tahanima
  */
-public class LoginPage extends BasePage {
+public final class LoginPage extends BasePage {
 
     @Step("Navigate to the login page")
-    public LoginPage navigateToUrl() {
+    public LoginPage open() {
         page.navigate(config().baseUrl());
 
         return this;
     }
 
     @Step("Type <username> into 'Username' textbox")
-    public LoginPage typeUsernameIntoTextBox(String username) {
+    public LoginPage typeUsername(final String username) {
         page.fill("id=user-name", username);
 
         return this;
     }
 
     @Step("Type <password> into 'Password' textbox")
-    public LoginPage typePasswordIntoTextBox(String password) {
+    public LoginPage typePassword(final String password) {
         page.fill("id=password", password);
 
         return this;
@@ -39,7 +39,18 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Click on the 'Login' button")
-    public void clickOnLoginButton() {
+    public ProductsPage submitLogin() {
         page.click("id=login-button");
+
+        return BasePageFactory.createInstance(page, ProductsPage.class);
+    }
+
+    @Step("Login attempt to Swag Labs")
+    public ProductsPage loginAs(final String username, final String password) {
+        open();
+        typeUsername(username);
+        typePassword(password);
+
+        return submitLogin();
     }
 }
