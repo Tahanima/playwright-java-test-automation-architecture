@@ -105,3 +105,81 @@ The project is structured as follows:
             ├─ login.csv
             └─ products.csv
 ```
+
+## Basic Usage
+
+- ### Configuration
+  The project uses a [*config.properties*](./src/test/resources/config.properties) file to manage global configurations such as browser type and base url.
+  
+  1. To add a new property, register a new entry in this file.
+      ```
+      key=value
+      ```
+    
+      Then, add a method in the [*Configuration*](./src/main/java/io/github/tahanima/config/Configuration.java) interface in the below format.
+      ```java
+      @Key("key")
+      dataType key();
+      ```
+    
+      For example, let's say I want to add a new property named `context` with the value `dev`. In the `config.properties` file, I'll add:
+      ```
+      context=dev
+      ```
+    
+      In the `Configuration` interface, I'll add:
+      ```java
+      @Key("context")
+      String context();
+      ```
+    
+      To use your newly created property, you need to use the below import statement.
+      ```java
+      import static io.github.tahanima.config.ConfigurationManager.config;
+      ```
+    
+      Then, you can call `config().key()` to retrieve the value of your newly created property. For the example I've provided, I need to call `config().context()`.
+
+  2. You can supply the properties present in the `config.properties` file as system properties in your test via gradle.
+      ```bash
+      ./gradlew test -Dkey1=value1 -Dkey2=value2
+      ```
+      
+- ### Test Data
+  The project uses *csv* file to store test data and [*univocity-parsers*](https://github.com/uniVocity/univocity-parsers) to retrieve the data and map it to a Java bean.
+
+  To add configurations for new test data, add a new Java bean in the [*data*](./src/main/java/io/github/tahanima/data) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
+     
+   ```java
+   package io.github.tahanima.data;
+
+   import com.univocity.parsers.annotations.Parsed;
+
+   import lombok.Getter;
+   import lombok.ToString;
+
+   @Getter
+   @ToString(callSuper = true)
+   public class UserData extends BaseData {
+
+       @Parsed(field = "First Name", defaultNullRead = "")
+       private String firstName;
+
+       @Parsed(field = "Last Name", defaultNullRead = "")
+       private String lastName;
+   }
+   ```
+   Note that the class extends from BaseData and thus, inherits the attribute `Test Case ID`.
+
+   Now, in the [*testdata*](./src/test/resources/testdata) folder you can add a csv file `user.csv` for `User` with the below contents and use it in your tests.
+   ```
+   Test Case ID,First Name,Last Name
+   TC-1,Tahanima,Chowdhury
+   ```
+   For reference, check [this](./src/main/java/io/github/tahanima/data/LoginData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginE2ETest.java).
+
+- ### Page Objects and Page Component Objects
+  The project uses [*Page Objects* and *Page Component Objects*](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) to capture the relevant behaviors of a web page. Check the [*ui*](./src/main/java/io/github/tahanima/ui) package for reference.
+
+- ### Tests
+  The project uses *TestNG* as the test runner. Check [this implementation](./src/test/java/io/github/tahanima/e2e/LoginE2ETest.java) for reference.
