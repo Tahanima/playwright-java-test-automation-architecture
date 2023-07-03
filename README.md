@@ -17,9 +17,18 @@ git clone https://github.com/[your_username]/playwright-java-test-automation-arc
 6. Build and browse the allure report using
 ```
 ./gradlew allureServe
+```
+
+How to run Allure Report Server Standalone. 
+
+1. Install Allure on the system by following command
+2. ```brew install allure```
+3. Navigate to allure results folder, in our case under build/allure-results
+4. Open terminal and issue the following command
+5. ```allure serve allure-results -h localhost```
+6. Browser windows will automatically open with Allure server running on localhost.
 
 allure serve allure-results -h localhost
-```
 
 ## Languages and Frameworks
 
