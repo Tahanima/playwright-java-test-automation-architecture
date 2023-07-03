@@ -4,7 +4,7 @@ Ready-to-use UI Test Automation Architecture using Java and Playwright.
 
 ## Installation Steps
 
-In order to use the framework:
+In order to use the framework: 
 
 1. [Fork](https://github.com/Tahanima/playwright-java-test-automation-architecture/fork) the repository.
 2. Clone, i.e, download your copy of the repository to your local machine using
