@@ -1,4 +1,4 @@
-# Playwright Java Test Automation Architecture
+# Playwright Java Test Automation
 
 Ready-to-use UI Test Automation Architecture using Java and Playwright.
 
