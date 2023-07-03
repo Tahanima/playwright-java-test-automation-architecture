@@ -14,7 +14,7 @@ git clone https://github.com/[your_username]/playwright-java-test-automation-arc
 3. Import the project in [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
 4. Make your desired changes.
 5. Use IntelliJ IDEA to run your desired tests. Alternatively, you can use the terminal to run the tests, for example `./gradlew test -Dbrowser=firefox -Dheadless=false` to run all the tests using the firefox browser in headed mode.
-6. Build and browse the allure report using
+6. Build and browse the allure report using 
 ```
 ./gradlew allureServe
 ```
