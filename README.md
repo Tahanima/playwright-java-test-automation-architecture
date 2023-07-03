@@ -17,6 +17,8 @@ git clone https://github.com/[your_username]/playwright-java-test-automation-arc
 6. Build and browse the allure report using
 ```
 ./gradlew allureServe
+
+allure serve allure-results -h localhost
 ```
 
 ## Languages and Frameworks
