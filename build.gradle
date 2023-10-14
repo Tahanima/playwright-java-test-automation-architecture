@@ -18,7 +18,7 @@ java {
 dependencies {
     implementation 'org.aeonbits.owner:owner:1.0.12'
     implementation 'com.univocity:univocity-parsers:2.9.1'
-    implementation 'com.microsoft.playwright:playwright:1.37.0'
+    implementation 'com.microsoft.playwright:playwright:1.38.0'
     implementation 'org.apache.commons:commons-lang3:3.13.0'
     implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'io.qameta.allure:allure-junit-platform:2.24.0'
