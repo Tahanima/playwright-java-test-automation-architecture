@@ -40,6 +40,7 @@ The project is structured as follows:
 📦 playwright-java-test-automation-architecture
 ├─ .github
 │  ├─ FUNDING.yml
+│  ├─ dependabot.yml
 │  └─ workflows
 │     └─ test-execution.yml
 ├─ .gitignore
@@ -62,10 +63,10 @@ The project is structured as follows:
    │              ├─ config
    │              │  ├─ Configuration.java
    │              │  └─ ConfigurationManager.java
-   │              ├─ data
-   │              │  ├─ BaseData.java
-   │              │  ├─ LoginData.java
-   │              │  └─ ProductsData.java
+   │              ├─ dto
+   │              │  ├─ BaseDto.java
+   │              │  ├─ LoginDto.java
+   │              │  └─ ProductsDto.java
    │              ├─ factory
    │              │  ├─ BasePageFactory.java
    │              │  └─ BrowserFactory.java
@@ -91,11 +92,11 @@ The project is structured as follows:
       │           │  ├─ Smoke.java
       │           │  └─ Validation.java
       │           ├─ e2e
-      │           │  ├─ BaseE2ETest.java
-      │           │  ├─ LoginE2ETest.java
-      │           │  └─ ProductsE2ETest.java
+      │           │  ├─ BaseTest.java
+      │           │  ├─ LoginTest.java
+      │           │  └─ ProductsTest.java
       │           └─ util
-      │              ├─ CsvToPOJOMapper.java
+      │              ├─ CsvToDtoMapper.java
       │              └─ DataArgumentsProvider.java
       └─ resources
          ├─ allure.properties
@@ -148,7 +149,7 @@ The project is structured as follows:
 - ### Test Data
   The project uses *csv* file to store test data and [*univocity-parsers*](https://github.com/uniVocity/univocity-parsers) to retrieve the data and map it to a Java bean.
 
-  To add configurations for new test data, add a new Java bean in the [*data*](./src/main/java/io/github/tahanima/dto) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
+  To add configurations for new test data, add a new Java bean in the [*dto*](./src/main/java/io/github/tahanima/dto) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
 
    ```java
    package io.github.tahanima.dto;
@@ -160,7 +161,7 @@ The project is structured as follows:
 
    @Getter
    @ToString(callSuper = true)
-   public class UserData extends BaseData {
+   public class UserDto extends BaseDto {
 
        @Parsed(field = "First Name", defaultNullRead = "")
        private String firstName;
@@ -169,17 +170,17 @@ The project is structured as follows:
        private String lastName;
    }
    ```
-   Note that the class extends from BaseData and thus, inherits the attribute `Test Case ID`.
+   Note that the class extends from BaseDto and thus, inherits the attribute `Test Case ID`.
 
    Now, in the [*testdata*](./src/test/resources/testdata) folder you can add a csv file `user.csv` for `User` with the below contents and use it in your tests.
    ```
    Test Case ID,First Name,Last Name
    TC-1,Tahanima,Chowdhury
    ```
-   For reference, check [this](./src/main/java/io/github/tahanima/dto/LoginData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginE2ETest.java).
+   For reference, check [this](./src/main/java/io/github/tahanima/dto/LoginDto.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
 
 - ### Page Objects and Page Component Objects
   The project uses [*Page Objects* and *Page Component Objects*](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) to capture the relevant behaviors of a web page. Check the [*ui*](./src/main/java/io/github/tahanima/ui) package for reference.
 
 - ### Tests
-  The project uses *TestNG* as the test runner. Check [this implementation](./src/test/java/io/github/tahanima/e2e/LoginE2ETest.java) for reference.
+  The project uses *JUnit 5* as the test runner. Check [this implementation](./src/test/java/io/github/tahanima/e2e/LoginTest.java) for reference.
