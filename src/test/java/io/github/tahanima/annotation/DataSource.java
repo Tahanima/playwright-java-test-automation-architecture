@@ -1,6 +1,6 @@
 package io.github.tahanima.annotation;
 
-import io.github.tahanima.data.BaseData;
+import io.github.tahanima.dto.BaseDto;
 import io.github.tahanima.util.DataArgumentsProvider;
 
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -20,5 +20,5 @@ public @interface DataSource {
 
     String fileName();
 
-    Class<? extends BaseData> clazz();
+    Class<? extends BaseDto> clazz();
 }

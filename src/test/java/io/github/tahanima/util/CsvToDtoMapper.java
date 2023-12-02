@@ -3,34 +3,36 @@ package io.github.tahanima.util;
 import com.univocity.parsers.csv.CsvParserSettings;
 import com.univocity.parsers.csv.CsvRoutines;
 
-import io.github.tahanima.data.BaseData;
+import io.github.tahanima.dto.BaseDto;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
  * @author tahanima
  */
-public final class CsvToPOJOMapper {
+@Slf4j
+public final class CsvToDtoMapper {
 
-    private CsvToPOJOMapper() {}
+    private CsvToDtoMapper() {}
 
     public static Object[] map(
-            final Class<? extends BaseData> clazz, final String fileName, final String id) {
-        CsvParserSettings settings = new CsvParserSettings();
+            final Class<? extends BaseDto> clazz, final String fileName, final String id) {
+        var settings = new CsvParserSettings();
 
         settings.getFormat().setLineSeparator("\n");
         settings.trimValues(false);
 
-        CsvRoutines routines = new CsvRoutines(settings);
+        var routines = new CsvRoutines(settings);
 
-        try (Reader reader =
+        try (var reader =
                 new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8)) {
-            ArrayList<BaseData> testData = new ArrayList<>();
+            ArrayList<BaseDto> testData = new ArrayList<>();
 
             routines.iterate(clazz, reader)
                     .forEach(
@@ -40,7 +42,7 @@ public final class CsvToPOJOMapper {
 
             return testData.toArray();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("CsvToDtoMapper::map", e);
         }
 
         throw new NullPointerException("Couldn't provide test data");

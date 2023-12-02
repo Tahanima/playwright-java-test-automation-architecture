@@ -148,10 +148,10 @@ The project is structured as follows:
 - ### Test Data
   The project uses *csv* file to store test data and [*univocity-parsers*](https://github.com/uniVocity/univocity-parsers) to retrieve the data and map it to a Java bean.
 
-  To add configurations for new test data, add a new Java bean in the [*data*](./src/main/java/io/github/tahanima/data) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
-     
+  To add configurations for new test data, add a new Java bean in the [*data*](./src/main/java/io/github/tahanima/dto) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
+
    ```java
-   package io.github.tahanima.data;
+   package io.github.tahanima.dto;
 
    import com.univocity.parsers.annotations.Parsed;
 
@@ -176,7 +176,7 @@ The project is structured as follows:
    Test Case ID,First Name,Last Name
    TC-1,Tahanima,Chowdhury
    ```
-   For reference, check [this](./src/main/java/io/github/tahanima/data/LoginData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginE2ETest.java).
+   For reference, check [this](./src/main/java/io/github/tahanima/dto/LoginData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginE2ETest.java).
 
 - ### Page Objects and Page Component Objects
   The project uses [*Page Objects* and *Page Component Objects*](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) to capture the relevant behaviors of a web page. Check the [*ui*](./src/main/java/io/github/tahanima/ui) package for reference.

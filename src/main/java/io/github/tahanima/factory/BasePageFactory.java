@@ -4,9 +4,12 @@ import com.microsoft.playwright.Page;
 
 import io.github.tahanima.ui.page.BasePage;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author tahanima
  */
+@Slf4j
 public final class BasePageFactory {
 
     private BasePageFactory() {}
@@ -20,7 +23,7 @@ public final class BasePageFactory {
 
             return clazz.cast(instance);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("BasePageFactory::createInstance", e);
         }
 
         throw new NullPointerException("Page class instantiation failed.");

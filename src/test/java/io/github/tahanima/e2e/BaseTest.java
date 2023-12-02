@@ -28,7 +28,7 @@ import java.util.Optional;
  * @author tahanima
  */
 @TestInstance(Lifecycle.PER_CLASS)
-public abstract class BaseE2ETest {
+public abstract class BaseTest {
 
     protected Playwright playwright;
     protected Browser browser;

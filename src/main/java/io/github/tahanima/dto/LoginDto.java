@@ -1,4 +1,4 @@
-package io.github.tahanima.data;
+package io.github.tahanima.dto;
 
 import com.univocity.parsers.annotations.Parsed;
 
@@ -10,7 +10,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString(callSuper = true)
-public class LoginData extends BaseData {
+public class LoginDto extends BaseDto {
 
     @Parsed(field = "Username", defaultNullRead = "")
     private String username;

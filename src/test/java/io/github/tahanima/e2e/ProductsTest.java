@@ -5,7 +5,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
 import io.github.tahanima.annotation.DataSource;
 import io.github.tahanima.annotation.Smoke;
-import io.github.tahanima.data.ProductsData;
+import io.github.tahanima.dto.ProductsDto;
 import io.github.tahanima.ui.page.LoginPage;
 import io.qameta.allure.*;
 
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
  * @author tahanima
  */
 @Feature("Products Test")
-public class ProductsE2ETest extends BaseE2ETest {
+public class ProductsTest extends BaseTest {
 
     private static final String PATH = "products.csv";
 
@@ -43,8 +43,8 @@ public class ProductsE2ETest extends BaseE2ETest {
     @Owner("Tahanima Chowdhury")
     @Description("Test that verifies user gets redirected to 'Login' page after logging out")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-1", fileName = PATH, clazz = ProductsData.class)
-    public void testSuccessfulLogout(final ProductsData data) {
+    @DataSource(id = "TC-1", fileName = PATH, clazz = ProductsDto.class)
+    public void testSuccessfulLogout(final ProductsDto data) {
         loginPage.loginAs(data.getUsername(), data.getPassword()).clickOnLogout();
 
         assertThat(page).hasURL(data.getUrl());

@@ -6,7 +6,7 @@ import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
 import io.github.tahanima.annotation.DataSource;
 import io.github.tahanima.annotation.Smoke;
 import io.github.tahanima.annotation.Validation;
-import io.github.tahanima.data.LoginData;
+import io.github.tahanima.dto.LoginDto;
 import io.github.tahanima.ui.page.LoginPage;
 import io.github.tahanima.ui.page.ProductsPage;
 import io.qameta.allure.*;
@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
  * @author tahanima
  */
 @Feature("Login Test")
-public class LoginE2ETest extends BaseE2ETest {
+public class LoginTest extends BaseTest {
 
     private static final String PATH = "login.csv";
 
@@ -46,8 +46,8 @@ public class LoginE2ETest extends BaseE2ETest {
     @Description(
             "Test that verifies user gets redirected to 'Products' page after submitting correct login credentials")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-1", fileName = PATH, clazz = LoginData.class)
-    public void testCorrectLoginCredentials(final LoginData data) {
+    @DataSource(id = "TC-1", fileName = PATH, clazz = LoginDto.class)
+    public void testCorrectLoginCredentials(final LoginDto data) {
         ProductsPage productsPage = loginPage.loginAs(data.getUsername(), data.getPassword());
 
         assertThat(productsPage.getTitle()).hasText("Products");
@@ -59,8 +59,8 @@ public class LoginE2ETest extends BaseE2ETest {
     @Description(
             "Test that verifies user gets error message after submitting incorrect login credentials")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-2", fileName = PATH, clazz = LoginData.class)
-    public void testIncorrectLoginCredentials(final LoginData data) {
+    @DataSource(id = "TC-2", fileName = PATH, clazz = LoginDto.class)
+    public void testIncorrectLoginCredentials(final LoginDto data) {
         loginPage.loginAs(data.getUsername(), data.getPassword());
 
         assertThat(loginPage.getErrorMessage()).hasText(data.getErrorMessage());
@@ -72,8 +72,8 @@ public class LoginE2ETest extends BaseE2ETest {
     @Description(
             "Test that verifies user gets error message after submitting login credentials where the username is blank")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-3", fileName = PATH, clazz = LoginData.class)
-    public void testBlankUserName(final LoginData data) {
+    @DataSource(id = "TC-3", fileName = PATH, clazz = LoginDto.class)
+    public void testBlankUserName(final LoginDto data) {
         loginPage.open().typePassword(data.getPassword()).submitLogin();
 
         assertThat(loginPage.getErrorMessage()).hasText(data.getErrorMessage());
@@ -85,8 +85,8 @@ public class LoginE2ETest extends BaseE2ETest {
     @Description(
             "Test that verifies user gets error message after submitting login credentials where the password is blank")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-4", fileName = PATH, clazz = LoginData.class)
-    public void testBlankPassword(final LoginData data) {
+    @DataSource(id = "TC-4", fileName = PATH, clazz = LoginDto.class)
+    public void testBlankPassword(final LoginDto data) {
         loginPage.open().typeUsername(data.getUsername()).submitLogin();
 
         assertThat(loginPage.getErrorMessage()).hasText(data.getErrorMessage());
@@ -98,8 +98,8 @@ public class LoginE2ETest extends BaseE2ETest {
     @Description(
             "Test that verifies user gets error message after submitting login credentials for locked out user")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-5", fileName = PATH, clazz = LoginData.class)
-    public void testLockedOutUser(final LoginData data) {
+    @DataSource(id = "TC-5", fileName = PATH, clazz = LoginDto.class)
+    public void testLockedOutUser(final LoginDto data) {
         loginPage.loginAs(data.getUsername(), data.getPassword());
 
         assertThat(loginPage.getErrorMessage()).hasText(data.getErrorMessage());
