@@ -13,8 +13,8 @@ repositories {
 dependencies {
     implementation 'org.aeonbits.owner:owner:1.0.12'
     implementation 'com.univocity:univocity-parsers:2.9.1'
-    implementation 'com.microsoft.playwright:playwright:1.38.0'
-    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    implementation 'com.microsoft.playwright:playwright:1.40.0'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'io.qameta.allure:allure-junit-platform:2.24.0'
     implementation 'com.github.automatedowl:allure-environment-writer:1.0.0'
@@ -24,7 +24,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
-    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation platform('org.junit:junit-bom:5.10.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'io.github.artsok:rerunner-jupiter:2.1.6'
     testImplementation 'org.slf4j:slf4j-simple:2.0.9'
