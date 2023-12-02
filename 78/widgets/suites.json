@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"64ddededc7fdeb1d14e51f71acb5dbaf","name":"io.github.tahanima.e2e.LoginTest","statistic":{"failed":0,"broken":0,"skipped":0,"passed":12,"unknown":0,"total":12}},{"uid":"5009eb1e049af6658ede26908dcf61e8","name":"io.github.tahanima.e2e.ProductsTest","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
