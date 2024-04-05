@@ -2,6 +2,16 @@
 
 Ready-to-use UI Test Automation Architecture using Java and Playwright.
 
+## Features
+
+- Configuration-based architecture
+- Utilizes Page Objects and Page Component Objects
+- Data-Driven
+- Captures screenshot on test failure
+- Records video of test execution
+- Provides detailed test report
+- Supports parallel test execution
+
 ## Installation Steps
 
 In order to use the framework:
