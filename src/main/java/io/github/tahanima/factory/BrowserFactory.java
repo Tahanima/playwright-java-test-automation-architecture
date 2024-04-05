@@ -11,6 +11,7 @@ import com.microsoft.playwright.Playwright;
  * @author tahanima
  */
 public enum BrowserFactory {
+
     CHROMIUM {
         @Override
         public Browser createInstance(final Playwright playwright) {
