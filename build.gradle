@@ -24,7 +24,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.32'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
-    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation platform('org.junit:junit-bom:5.10.3')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'io.github.artsok:rerunner-jupiter:2.1.6'
     testImplementation 'org.slf4j:slf4j-simple:2.0.13'
