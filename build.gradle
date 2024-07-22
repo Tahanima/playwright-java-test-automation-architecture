@@ -13,7 +13,7 @@ repositories {
 dependencies {
     implementation 'org.aeonbits.owner:owner:1.0.12'
     implementation 'com.univocity:univocity-parsers:2.9.1'
-    implementation 'com.microsoft.playwright:playwright:1.43.0'
+    implementation 'com.microsoft.playwright:playwright:1.45.1'
     implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.slf4j:slf4j-api:2.0.13'
     implementation 'io.qameta.allure:allure-junit-platform:2.27.0'
