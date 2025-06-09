@@ -1,10 +1,7 @@
 package io.github.tahanima.util;
 
-import static io.github.tahanima.config.ConfigurationManager.config;
-
-import io.github.tahanima.annotation.DataSource;
-import io.github.tahanima.dto.BaseDto;
-
+import io.github.tahanima.annotation.TestDataSource;
+import io.github.tahanima.fixture.BaseFixture;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
@@ -12,17 +9,19 @@ import org.junit.jupiter.params.support.AnnotationConsumer;
 
 import java.util.stream.Stream;
 
+import static io.github.tahanima.config.ConfigurationManager.config;
+
 /**
  * @author tahanima
  */
-public class DataArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<DataSource> {
+public class TestDataArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<TestDataSource> {
 
     private String id;
     private String fileName;
-    private Class<? extends BaseDto> clazz;
+    private Class<? extends BaseFixture> clazz;
 
     @Override
-    public void accept(final DataSource source) {
+    public void accept(final TestDataSource source) {
         id = source.id();
         fileName = config().baseTestDataPath() + source.fileName();
         clazz = source.clazz();
@@ -30,6 +29,6 @@ public class DataArgumentsProvider implements ArgumentsProvider, AnnotationConsu
 
     @Override
     public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
-        return Stream.of(CsvToDtoMapper.map(clazz, fileName, id)).map(Arguments::of);
+        return Stream.of(TestFixtureCsvLoader.load(clazz, fileName, id)).map(Arguments::of);
     }
 }

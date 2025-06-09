@@ -1,11 +1,10 @@
 package io.github.tahanima.ui.page;
 
-import static io.github.tahanima.config.ConfigurationManager.config;
-
 import com.microsoft.playwright.Locator;
-
 import io.github.tahanima.factory.BasePageFactory;
 import io.qameta.allure.Step;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
 
 /**
  * @author tahanima
@@ -15,6 +14,7 @@ public final class LoginPage extends BasePage {
     @Step("Navigate to the login page")
     public LoginPage open() {
         page.navigate(config().baseUrl());
+        attachScreenshotOnReport("After navigating to the login page");
 
         return this;
     }
@@ -22,6 +22,7 @@ public final class LoginPage extends BasePage {
     @Step("Type <username> into 'Username' textbox")
     public LoginPage typeUsername(final String username) {
         page.fill("id=user-name", username);
+        attachScreenshotOnReport("After typing the username");
 
         return this;
     }
@@ -29,11 +30,11 @@ public final class LoginPage extends BasePage {
     @Step("Type <password> into 'Password' textbox")
     public LoginPage typePassword(final String password) {
         page.fill("id=password", password);
+        attachScreenshotOnReport("After typing the password");
 
         return this;
     }
 
-    @Step("Get error message")
     public Locator getErrorMessage() {
         return page.locator(".error-message-container h3");
     }
@@ -41,6 +42,7 @@ public final class LoginPage extends BasePage {
     @Step("Click on the 'Login' button")
     public ProductsPage submitLogin() {
         page.click("id=login-button");
+        attachScreenshotOnReport("After clicking on the login button");
 
         return BasePageFactory.createInstance(page, ProductsPage.class);
     }

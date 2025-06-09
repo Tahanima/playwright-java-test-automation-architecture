@@ -1,10 +1,11 @@
 package io.github.tahanima.ui.page;
 
-import static io.github.tahanima.config.ConfigurationManager.config;
-
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Allure;
 
-import io.qameta.allure.Step;
+import java.io.ByteArrayInputStream;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
 
 /**
  * @author tahanima
@@ -21,8 +22,11 @@ public abstract class BasePage {
 
     public void initComponents() {}
 
-    @Step
     public byte[] captureScreenshot() {
         return page.screenshot();
+    }
+
+    public void attachScreenshotOnReport(final String stepName) {
+        Allure.attachment(stepName, new ByteArrayInputStream(captureScreenshot()));
     }
 }

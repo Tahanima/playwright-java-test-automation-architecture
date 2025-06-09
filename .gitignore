@@ -16,4 +16,9 @@ out
 *.iml
 atlassian-ide-plugin.xml
 
+### Mac OS ###
+.DS_Store
+
+allure-results
+
 src/test/resources/testvideo/

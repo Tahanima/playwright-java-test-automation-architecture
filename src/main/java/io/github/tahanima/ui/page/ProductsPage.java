@@ -1,7 +1,6 @@
 package io.github.tahanima.ui.page;
 
 import com.microsoft.playwright.Locator;
-
 import io.github.tahanima.factory.BasePageFactory;
 import io.github.tahanima.ui.component.Header;
 import io.github.tahanima.ui.component.SideNavMenu;
@@ -21,15 +20,15 @@ public final class ProductsPage extends BasePage {
         sideNavMenu = new SideNavMenu(page);
     }
 
-    @Step("Get title of the 'Products' page")
     public Locator getTitle() {
         return page.locator(".title");
     }
 
-    @Step("Click on 'Logout' button from side navigation menu")
+    @Step("Click on 'Logout' link from side navigation menu")
     public LoginPage clickOnLogout() {
         header.clickOnHamburgerIcon();
         sideNavMenu.clickOnLogout();
+        attachScreenshotOnReport("After clicking on the logout link");
 
         return BasePageFactory.createInstance(page, LoginPage.class);
     }

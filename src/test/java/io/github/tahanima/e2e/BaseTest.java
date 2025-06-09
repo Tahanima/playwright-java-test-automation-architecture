@@ -1,28 +1,23 @@
 package io.github.tahanima.e2e;
 
-import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
-
-import static io.github.tahanima.config.ConfigurationManager.config;
-
-import static org.junit.jupiter.api.TestInstance.*;
-
-import com.google.common.collect.ImmutableMap;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-
 import io.github.tahanima.factory.BasePageFactory;
 import io.github.tahanima.ui.page.BasePage;
 import io.github.tahanima.ui.page.LoginPage;
 import io.github.tahanima.util.BrowserManager;
-
-import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.util.Optional;
+
+import static io.github.tahanima.report.AllureManager.setAllureEnvironmentInfo;
+import static org.junit.jupiter.api.TestInstance.Lifecycle;
 
 /**
  * @author tahanima
@@ -53,22 +48,15 @@ public abstract class BaseTest {
     }
 
     @BeforeAll
-    public void createPlaywrightAndBrowserInstancesAndSetupAllureEnvironment() {
+    public void setupAll() {
         playwright = Playwright.create();
         browser = BrowserManager.getBrowser(playwright);
 
-        allureEnvironmentWriter(
-                ImmutableMap.<String, String>builder()
-                        .put("Platform", System.getProperty("os.name"))
-                        .put("Version", System.getProperty("os.version"))
-                        .put("Browser", StringUtils.capitalize(config().browser()))
-                        .put("Context URL", config().baseUrl())
-                        .build(),
-                config().allureResultsDir() + "/");
+        setAllureEnvironmentInfo();
     }
 
     @AfterAll
-    public void closeBrowserAndPlaywrightSessions() {
+    public void teardownAll() {
         browser.close();
         playwright.close();
     }

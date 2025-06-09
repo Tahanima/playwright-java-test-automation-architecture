@@ -1,7 +1,6 @@
-package io.github.tahanima.dto;
+package io.github.tahanima.fixture;
 
 import com.univocity.parsers.annotations.Parsed;
-
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,7 +9,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString(callSuper = true)
-public final class ProductsDto extends BaseDto {
+public class LoginFixture extends BaseFixture {
 
     @Parsed(field = "Username", defaultNullRead = "")
     private String username;
@@ -18,6 +17,6 @@ public final class ProductsDto extends BaseDto {
     @Parsed(field = "Password", defaultNullRead = "")
     private String password;
 
-    @Parsed(field = "URL", defaultNullRead = "")
-    private String url;
+    @Parsed(field = "Error Message", defaultNullRead = "")
+    private String errorMessage;
 }

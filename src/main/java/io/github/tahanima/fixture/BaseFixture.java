@@ -1,7 +1,6 @@
-package io.github.tahanima.dto;
+package io.github.tahanima.fixture;
 
 import com.univocity.parsers.annotations.Parsed;
-
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,7 +9,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-public class BaseDto {
+public class BaseFixture {
 
     @Parsed(field = "Test Case ID", defaultNullRead = "")
     private String testCaseId;

@@ -1,23 +1,20 @@
 package io.github.tahanima.e2e;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
-import static io.github.tahanima.config.ConfigurationManager.config;
-
 import com.microsoft.playwright.Browser;
-
 import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
-import io.github.tahanima.annotation.DataSource;
 import io.github.tahanima.annotation.Smoke;
-import io.github.tahanima.dto.ProductsDto;
+import io.github.tahanima.annotation.TestDataSource;
+import io.github.tahanima.fixture.ProductsFixture;
 import io.github.tahanima.ui.page.LoginPage;
 import io.qameta.allure.*;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
 import java.nio.file.Paths;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static io.github.tahanima.config.ConfigurationManager.config;
 
 /**
  * @author tahanima
@@ -29,7 +26,7 @@ public class ProductsTest extends BaseTest {
     private static final String VIDEO_PATH = "products/";
 
     @BeforeEach
-    public void createBrowserContextAndPageAndLoginPageInstances(TestInfo testInfo) {
+    public void setupEach(TestInfo testInfo) {
         String testMethodName =
                 (testInfo.getTestMethod().isPresent())
                         ? testInfo.getTestMethod().get().getName()
@@ -58,7 +55,7 @@ public class ProductsTest extends BaseTest {
     }
 
     @AfterEach
-    public void closeBrowserContextSession() {
+    public void teardownEach() {
         browserContext.close();
     }
 
@@ -67,10 +64,10 @@ public class ProductsTest extends BaseTest {
     @Owner("Tahanima Chowdhury")
     @Description("Test that verifies user gets redirected to 'Login' page after logging out")
     @ParameterizedRepeatedIfExceptionsTest
-    @DataSource(id = "TC-1", fileName = CSV_PATH, clazz = ProductsDto.class)
-    public void testSuccessfulLogout(final ProductsDto data) {
-        loginPage.loginAs(data.getUsername(), data.getPassword()).clickOnLogout();
+    @TestDataSource(id = "TC-1", fileName = CSV_PATH, clazz = ProductsFixture.class)
+    public void testSuccessfulLogout(final ProductsFixture fixture) {
+        loginPage.loginAs(fixture.getUsername(), fixture.getPassword()).clickOnLogout();
 
-        assertThat(page).hasURL(data.getUrl());
+        assertThat(page).hasURL(fixture.getUrl());
     }
 }

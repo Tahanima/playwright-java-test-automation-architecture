@@ -1,8 +1,7 @@
 package io.github.tahanima.annotation;
 
-import io.github.tahanima.dto.BaseDto;
-import io.github.tahanima.util.DataArgumentsProvider;
-
+import io.github.tahanima.fixture.BaseFixture;
+import io.github.tahanima.util.TestDataArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.lang.annotation.*;
@@ -13,12 +12,12 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@ArgumentsSource(DataArgumentsProvider.class)
-public @interface DataSource {
+@ArgumentsSource(TestDataArgumentsProvider.class)
+public @interface TestDataSource {
 
     String id();
 
     String fileName();
 
-    Class<? extends BaseDto> clazz();
+    Class<? extends BaseFixture> clazz();
 }

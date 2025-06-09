@@ -1,11 +1,11 @@
 package io.github.tahanima.factory;
 
-import static io.github.tahanima.config.ConfigurationManager.config;
-
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
 import com.microsoft.playwright.Playwright;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
 
 /**
  * @author tahanima
