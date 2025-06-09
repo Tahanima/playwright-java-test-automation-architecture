@@ -32,7 +32,7 @@ git clone https://github.com/[your_username]/playwright-java-test-automation-arc
 ## Languages and Frameworks
 
 The project uses the following:
-- *[Java 11](https://openjdk.java.net/projects/jdk/11/)* as the programming language.
+- *[Java](https://openjdk.java.net/projects/jdk/)* as the programming language.
 - *[Playwright](https://playwright.dev/)* as the web browser automation framework using the Java binding.
 - *[Univocity Parsers](https://www.univocity.com/pages/univocity_parsers_tutorial)* to parse and handle CSV files.
 - *[JUnit 5](https://junit.org/junit5/)* as the testing framework.
@@ -66,51 +66,54 @@ The project is structured as follows:
 ├─ settings.gradle
 └─ src
    ├─ main
-   │  └─ java
-   │     └─ io
-   │        └─ github
-   │           └─ tahanima
-   │              ├─ config
-   │              │  ├─ Configuration.java
-   │              │  └─ ConfigurationManager.java
-   │              ├─ dto
-   │              │  ├─ BaseDto.java
-   │              │  ├─ LoginDto.java
-   │              │  └─ ProductsDto.java
-   │              ├─ factory
-   │              │  ├─ BasePageFactory.java
-   │              │  └─ BrowserFactory.java
-   │              ├─ ui
-   │              │  ├─ component
-   │              │  │  ├─ BaseComponent.java
-   │              │  │  ├─ Header.java
-   │              │  │  └─ SideNavMenu.java
-   │              │  └─ page
-   │              │     ├─ BasePage.java
-   │              │     ├─ LoginPage.java
-   │              │     └─ ProductsPage.java
-   │              └─ util
-   │                 └─ BrowserManager.java
+   │  ├─ java
+   │  │  └─ io
+   │  │     └─ github
+   │  │        └─ tahanima
+   │  │           ├─ config
+   │  │           │  ├─ Configuration.java
+   │  │           │  └─ ConfigurationManager.java
+   │  │           ├─ factory
+   │  │           │  ├─ BasePageFactory.java
+   │  │           │  └─ BrowserFactory.java
+   │  │           ├─ fixture
+   │  │           │  ├─ BaseFixture.java
+   │  │           │  ├─ LoginFixture.java
+   │  │           │  └─ ProductsFixture.java
+   │  │           ├─ report
+   │  │           │  └─ AllureManager.java
+   │  │           ├─ ui
+   │  │           │  ├─ component
+   │  │           │  │  ├─ BaseComponent.java
+   │  │           │  │  ├─ Header.java
+   │  │           │  │  └─ SideNavMenu.java
+   │  │           │  └─ page
+   │  │           │     ├─ BasePage.java
+   │  │           │     ├─ LoginPage.java
+   │  │           │     └─ ProductsPage.java
+   │  │           └─ util
+   │  │              └─ BrowserManager.java
+   │  └─ resources
+   │     ├─ allure.properties
+   │     └─ config.properties
    └─ test
       ├─ java
       │  └─ io
       │     └─ github
       │        └─ tahanima
       │           ├─ annotation
-      │           │  ├─ DataSource.java
       │           │  ├─ Regression.java
       │           │  ├─ Smoke.java
+      │           │  ├─ TestDataSource.java
       │           │  └─ Validation.java
       │           ├─ e2e
       │           │  ├─ BaseTest.java
       │           │  ├─ LoginTest.java
       │           │  └─ ProductsTest.java
       │           └─ util
-      │              ├─ CsvToDtoMapper.java
-      │              └─ DataArgumentsProvider.java
+      │              ├─ TestDataArgumentsProvider.java
+      │              └─ TestFixtureCsvLoader.java
       └─ resources
-         ├─ allure.properties
-         ├─ config.properties
          ├─ junit-platform.properties
          └─ testdata
             ├─ login.csv
@@ -120,7 +123,7 @@ The project is structured as follows:
 ## Basic Usage
 
 - ### Configuration
-  The project uses a [*config.properties*](./src/test/resources/config.properties) file to manage global configurations such as browser type and base url.
+  The project uses a [*config.properties*](./src/main/resources/config.properties) file to manage global configurations such as browser type and base url.
   
   1. To add a new property, register a new entry in this file.
       ```
@@ -159,7 +162,7 @@ The project is structured as follows:
 - ### Test Data
   The project uses *csv* file to store test data and [*univocity-parsers*](https://github.com/uniVocity/univocity-parsers) to retrieve the data and map it to a Java bean.
 
-  To add configurations for new test data, add a new Java bean in the [*dto*](./src/main/java/io/github/tahanima/fixture) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
+  To add configurations for new test data, add a new Java bean in the [*fixture*](./src/main/java/io/github/tahanima/fixture) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
 
    ```java
    package io.github.tahanima.fixture;
@@ -171,7 +174,7 @@ The project is structured as follows:
 
    @Getter
    @ToString(callSuper = true)
-   public class UserDto extends BaseDto {
+   public class UserFixture extends BaseFixture {
 
        @Parsed(field = "First Name", defaultNullRead = "")
        private String firstName;
@@ -180,14 +183,14 @@ The project is structured as follows:
        private String lastName;
    }
    ```
-   Note that the class extends from BaseDto and thus, inherits the attribute `Test Case ID`.
+   Note that the class extends from BaseFixture and thus, inherits the attribute `Test Case ID`.
 
    Now, in the [*testdata*](./src/test/resources/testdata) folder you can add a csv file `user.csv` for `User` with the below contents and use it in your tests.
    ```
    Test Case ID,First Name,Last Name
    TC-1,Tahanima,Chowdhury
    ```
-   For reference, check [this](./src/main/java/io/github/tahanima/fixture/LoginDto.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
+   For reference, check [this](./src/main/java/io/github/tahanima/fixture/LoginFixture.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
 
 - ### Page Objects and Page Component Objects
   The project uses [*Page Objects* and *Page Component Objects*](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) to capture the relevant behaviors of a web page. Check the [*ui*](./src/main/java/io/github/tahanima/ui) package for reference.
