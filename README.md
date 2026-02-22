@@ -11,6 +11,8 @@ Ready-to-use UI Test Automation Architecture using Java and Playwright.
 - Records video of test execution
 - Provides detailed test report
 - Supports parallel test execution
+- Supports gemini-cli for AI-assisted coding
+---
 
 ## Installation Steps
 
@@ -28,6 +30,7 @@ git clone https://github.com/[your_username]/playwright-java-test-automation-arc
 ```
 ./gradlew allureServe
 ```
+---
 
 ## Languages and Frameworks
 
@@ -41,6 +44,8 @@ The project uses the following:
 - *[Allure Report](https://qameta.io/allure-report/)* as the test reporting strategy.
 - *[Gradle](https://gradle.org/)* as the Java build tool.
 - *[IntelliJ IDEA](https://www.jetbrains.com/idea/)* as the IDE.
+- *[Gemini CLI](https://github.com/google-gemini/gemini-cli)* as an AI collaborator for code reviews, locator healing, and test generation.
+---
 
 ## Project Structure
 
@@ -48,6 +53,14 @@ The project is structured as follows:
 
 ```bash
 📦 playwright-java-test-automation-architecture
+├─ .gemini
+│  └─ skills
+│     └─ code-reviewer
+|        └─ review-rules.md
+|        └─ SKILL.md
+|     └─ healing-agent
+|        └─ locator-healer.md
+|        └─ SKILL.md
 ├─ .github
 │  ├─ FUNDING.yml
 │  ├─ dependabot.yml
@@ -56,6 +69,7 @@ The project is structured as follows:
 ├─ .gitignore
 ├─ LICENSE
 ├─ README.md
+├─ GEMINI.md
 ├─ build.gradle
 ├─ gradle
 │  └─ wrapper
@@ -76,10 +90,10 @@ The project is structured as follows:
    │  │           ├─ factory
    │  │           │  ├─ BasePageFactory.java
    │  │           │  └─ BrowserFactory.java
-   │  │           ├─ fixture
-   │  │           │  ├─ BaseFixture.java
-   │  │           │  ├─ LoginFixture.java
-   │  │           │  └─ ProductsFixture.java
+   │  │           ├─ testData
+   │  │           │  ├─ BaseTestData.java
+   │  │           │  ├─ LoginTestData.java
+   │  │           │  └─ ProductsTestData.java
    │  │           ├─ report
    │  │           │  └─ AllureManager.java
    │  │           ├─ ui
@@ -112,13 +126,14 @@ The project is structured as follows:
       │           │  └─ ProductsTest.java
       │           └─ util
       │              ├─ TestDataArgumentsProvider.java
-      │              └─ TestFixtureCsvLoader.java
+      │              └─ CsvLoader.java
       └─ resources
          ├─ junit-platform.properties
          └─ testdata
             ├─ login.csv
             └─ products.csv
 ```
+---
 
 ## Basic Usage
 
@@ -162,10 +177,10 @@ The project is structured as follows:
 - ### Test Data
   The project uses *csv* file to store test data and [*univocity-parsers*](https://github.com/uniVocity/univocity-parsers) to retrieve the data and map it to a Java bean.
 
-  To add configurations for new test data, add a new Java bean in the [*fixture*](./src/main/java/io/github/tahanima/fixture) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
+  To add configurations for new test data, add a new Java bean in the [*testData*](./src/main/java/io/github/tahanima/testdata) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
 
    ```java
-   package io.github.tahanima.fixture;
+   package io.github.tahanima.testdata;
 
    import com.univocity.parsers.annotations.Parsed;
 
@@ -174,7 +189,7 @@ The project is structured as follows:
 
    @Getter
    @ToString(callSuper = true)
-   public class UserFixture extends BaseFixture {
+   public class UsertestData extends BasetestData {
 
        @Parsed(field = "First Name", defaultNullRead = "")
        private String firstName;
@@ -183,17 +198,47 @@ The project is structured as follows:
        private String lastName;
    }
    ```
-   Note that the class extends from BaseFixture and thus, inherits the attribute `Test Case ID`.
+   Note that the class extends from BasetestData and thus, inherits the attribute `Test Case ID`.
 
    Now, in the [*testdata*](./src/test/resources/testdata) folder you can add a csv file `user.csv` for `User` with the below contents and use it in your tests.
    ```
    Test Case ID,First Name,Last Name
    TC-1,Tahanima,Chowdhury
    ```
-   For reference, check [this](./src/main/java/io/github/tahanima/fixture/LoginFixture.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
+   For reference, check [this](./src/main/java/io/github/tahanima/testdata/LogintestData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
 
 - ### Page Objects and Page Component Objects
   The project uses [*Page Objects* and *Page Component Objects*](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) to capture the relevant behaviors of a web page. Check the [*ui*](./src/main/java/io/github/tahanima/ui) package for reference.
 
 - ### Tests
   The project uses *JUnit 5* as the test runner. Check [this implementation](./src/test/java/io/github/tahanima/e2e/LoginTest.java) for reference.
+---
+
+## AI-Augmented Workflow
+
+This project is optimized for use with **Gemini CLI**, providing a specialized AI agent that understands the architecture.
+
+### Prerequisites
+- Gemini CLI: -[Installed and authenticated](https://github.com/google-gemini/gemini-cli) via your Google Account.
+- Project Root: Ensure you run the CLI from the project root to allow it to parse the .gemini/ configuration.
+
+### Project Context (GEMINI.md)
+The project includes a `GEMINI.md` file which serves as the AI's "Source of Truth." This ensures that any code generated or reviewed by the AI adheres to:
+- **BasePageFactory** initialization patterns.
+- **Layer Separation** (Pages vs. TestData POJOs vs. E2E Tests).
+- **Playwright Best Practices** (Accessibility-first locators over brittle XPaths).
+
+### Specialized AI Skills
+We have implemented custom **Skills** in the `.gemini/skills/` directory to automate common QA tasks:
+
+- **`code-reviewer`**: Automatically audits new Page Objects, POJOs, and Tests to ensure they follow the project's layer separation and naming conventions.
+- **`healing-agent`**: Diagnoses test failures (like `TimeoutError`) and suggests robust, accessibility-first Playwright locators (e.g., `getByRole`) to replace brittle XPaths.
+
+### How to Use
+Simply run `gemini` in the project root. You can trigger skills manually or let the AI suggest them:
+```bash
+# To perform a code review
+gemini "Review this new test class: @src/test/java/io/github/tahanima/e2e/NewFeatureTest.java"
+
+# To fix a failing locator
+gemini "The login button locator is failing. Use the healing-agent to suggest a fix for @src/main/java/io/github/tahanima/ui/page/LoginPage.java"

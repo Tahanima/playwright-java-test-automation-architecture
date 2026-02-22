@@ -1,6 +1,6 @@
 package io.github.tahanima.annotation;
 
-import io.github.tahanima.fixture.BaseFixture;
+import io.github.tahanima.testdata.BaseTestData;
 import io.github.tahanima.util.TestDataArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -19,5 +19,5 @@ public @interface TestDataSource {
 
     String fileName();
 
-    Class<? extends BaseFixture> clazz();
+    Class<? extends BaseTestData> clazz();
 }

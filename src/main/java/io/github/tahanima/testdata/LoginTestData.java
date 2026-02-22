@@ -1,4 +1,4 @@
-package io.github.tahanima.fixture;
+package io.github.tahanima.testdata;
 
 import com.univocity.parsers.annotations.Parsed;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString(callSuper = true)
-public final class ProductsFixture extends BaseFixture {
+public class LoginTestData extends BaseTestData {
 
     @Parsed(field = "Username", defaultNullRead = "")
     private String username;
@@ -17,6 +17,6 @@ public final class ProductsFixture extends BaseFixture {
     @Parsed(field = "Password", defaultNullRead = "")
     private String password;
 
-    @Parsed(field = "URL", defaultNullRead = "")
-    private String url;
+    @Parsed(field = "Error Message", defaultNullRead = "")
+    private String errorMessage;
 }

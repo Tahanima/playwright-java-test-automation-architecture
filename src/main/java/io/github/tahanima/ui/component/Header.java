@@ -8,7 +8,7 @@ import io.qameta.allure.Step;
  */
 public final class Header extends BaseComponent {
 
-    public Header(final Page page) {
+    public Header(Page page) {
         super(page);
     }
 

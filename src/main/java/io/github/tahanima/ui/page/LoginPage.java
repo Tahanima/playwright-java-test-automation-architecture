@@ -20,7 +20,7 @@ public final class LoginPage extends BasePage {
     }
 
     @Step("Type <username> into 'Username' textbox")
-    public LoginPage typeUsername(final String username) {
+    public LoginPage typeUsername(String username) {
         page.fill("id=user-name", username);
         attachScreenshotOnReport("After typing the username");
 
@@ -28,7 +28,7 @@ public final class LoginPage extends BasePage {
     }
 
     @Step("Type <password> into 'Password' textbox")
-    public LoginPage typePassword(final String password) {
+    public LoginPage typePassword(String password) {
         page.fill("id=password", password);
         attachScreenshotOnReport("After typing the password");
 
@@ -48,7 +48,7 @@ public final class LoginPage extends BasePage {
     }
 
     @Step("Login attempt to Swag Labs")
-    public ProductsPage loginAs(final String username, final String password) {
+    public ProductsPage loginAs(String username, String password) {
         open();
         typeUsername(username);
         typePassword(password);

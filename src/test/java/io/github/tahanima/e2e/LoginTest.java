@@ -1,22 +1,25 @@
 package io.github.tahanima.e2e;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
+
 import com.microsoft.playwright.Browser;
+
 import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
 import io.github.tahanima.annotation.Smoke;
 import io.github.tahanima.annotation.TestDataSource;
 import io.github.tahanima.annotation.Validation;
-import io.github.tahanima.fixture.LoginFixture;
+import io.github.tahanima.testdata.LoginTestData;
 import io.github.tahanima.ui.page.LoginPage;
 import io.github.tahanima.ui.page.ProductsPage;
 import io.qameta.allure.*;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
 import java.nio.file.Paths;
-
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import static io.github.tahanima.config.ConfigurationManager.config;
 
 /**
  * @author tahanima
@@ -67,9 +70,9 @@ public class LoginTest extends BaseTest {
     @Description(
             "Test that verifies user gets redirected to 'Products' page after submitting correct login credentials")
     @ParameterizedRepeatedIfExceptionsTest
-    @TestDataSource(id = "TC-1", fileName = CSV_PATH, clazz = LoginFixture.class)
-    public void testCorrectLoginCredentials(final LoginFixture fixture) {
-        ProductsPage productsPage = loginPage.loginAs(fixture.getUsername(), fixture.getPassword());
+    @TestDataSource(id = "TC-1", fileName = CSV_PATH, clazz = LoginTestData.class)
+    public void testCorrectLoginCredentials(LoginTestData testData) {
+        ProductsPage productsPage = loginPage.loginAs(testData.getUsername(), testData.getPassword());
 
         assertThat(productsPage.getTitle()).hasText("Products");
     }
@@ -80,11 +83,11 @@ public class LoginTest extends BaseTest {
     @Description(
             "Test that verifies user gets error message after submitting incorrect login credentials")
     @ParameterizedRepeatedIfExceptionsTest
-    @TestDataSource(id = "TC-2", fileName = CSV_PATH, clazz = LoginFixture.class)
-    public void testIncorrectLoginCredentials(final LoginFixture fixture) {
-        loginPage.loginAs(fixture.getUsername(), fixture.getPassword());
+    @TestDataSource(id = "TC-2", fileName = CSV_PATH, clazz = LoginTestData.class)
+    public void testIncorrectLoginCredentials(LoginTestData testData) {
+        loginPage.loginAs(testData.getUsername(), testData.getPassword());
 
-        assertThat(loginPage.getErrorMessage()).hasText(fixture.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(testData.getErrorMessage());
     }
 
     @Validation
@@ -93,11 +96,11 @@ public class LoginTest extends BaseTest {
     @Description(
             "Test that verifies user gets error message after submitting login credentials where the username is blank")
     @ParameterizedRepeatedIfExceptionsTest
-    @TestDataSource(id = "TC-3", fileName = CSV_PATH, clazz = LoginFixture.class)
-    public void testBlankUserName(final LoginFixture fixture) {
-        loginPage.open().typePassword(fixture.getPassword()).submitLogin();
+    @TestDataSource(id = "TC-3", fileName = CSV_PATH, clazz = LoginTestData.class)
+    public void testBlankUserName(LoginTestData testData) {
+        loginPage.open().typePassword(testData.getPassword()).submitLogin();
 
-        assertThat(loginPage.getErrorMessage()).hasText(fixture.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(testData.getErrorMessage());
     }
 
     @Validation
@@ -106,11 +109,11 @@ public class LoginTest extends BaseTest {
     @Description(
             "Test that verifies user gets error message after submitting login credentials where the password is blank")
     @ParameterizedRepeatedIfExceptionsTest
-    @TestDataSource(id = "TC-4", fileName = CSV_PATH, clazz = LoginFixture.class)
-    public void testBlankPassword(final LoginFixture fixture) {
-        loginPage.open().typeUsername(fixture.getUsername()).submitLogin();
+    @TestDataSource(id = "TC-4", fileName = CSV_PATH, clazz = LoginTestData.class)
+    public void testBlankPassword(LoginTestData testData) {
+        loginPage.open().typeUsername(testData.getUsername()).submitLogin();
 
-        assertThat(loginPage.getErrorMessage()).hasText(fixture.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(testData.getErrorMessage());
     }
 
     @Validation
@@ -119,10 +122,10 @@ public class LoginTest extends BaseTest {
     @Description(
             "Test that verifies user gets error message after submitting login credentials for locked out user")
     @ParameterizedRepeatedIfExceptionsTest
-    @TestDataSource(id = "TC-5", fileName = CSV_PATH, clazz = LoginFixture.class)
-    public void testLockedOutUser(final LoginFixture fixture) {
-        loginPage.loginAs(fixture.getUsername(), fixture.getPassword());
+    @TestDataSource(id = "TC-5", fileName = CSV_PATH, clazz = LoginTestData.class)
+    public void testLockedOutUser(LoginTestData testData) {
+        loginPage.loginAs(testData.getUsername(), testData.getPassword());
 
-        assertThat(loginPage.getErrorMessage()).hasText(fixture.getErrorMessage());
+        assertThat(loginPage.getErrorMessage()).hasText(testData.getErrorMessage());
     }
 }

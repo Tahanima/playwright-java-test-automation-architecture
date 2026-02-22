@@ -1,7 +1,9 @@
 package io.github.tahanima.factory;
 
 import com.microsoft.playwright.Page;
+
 import io.github.tahanima.ui.page.BasePage;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,7 +14,7 @@ public final class BasePageFactory {
 
     private BasePageFactory() {}
 
-    public static <T extends BasePage> T createInstance(final Page page, final Class<T> clazz) {
+    public static <T extends BasePage> T createInstance(Page page, Class<T> clazz) {
         try {
             BasePage instance = clazz.getDeclaredConstructor().newInstance();
 

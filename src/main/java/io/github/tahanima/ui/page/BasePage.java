@@ -14,7 +14,7 @@ public abstract class BasePage {
 
     protected Page page;
 
-    public void setAndConfigurePage(final Page page) {
+    public void setAndConfigurePage(Page page) {
         this.page = page;
 
         page.setDefaultTimeout(config().timeout());
@@ -26,7 +26,7 @@ public abstract class BasePage {
         return page.screenshot();
     }
 
-    public void attachScreenshotOnReport(final String stepName) {
+    public void attachScreenshotOnReport(String stepName) {
         Allure.attachment(stepName, new ByteArrayInputStream(captureScreenshot()));
     }
 }

@@ -14,7 +14,7 @@ public final class BrowserManager {
 
     private BrowserManager() {}
 
-    public static Browser getBrowser(final Playwright playwright) {
+    public static Browser getBrowser(Playwright playwright) {
         return BrowserFactory.valueOf(config().browser().toUpperCase()).createInstance(playwright);
     }
 }

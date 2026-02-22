@@ -9,7 +9,7 @@ public abstract class BaseComponent {
 
     protected Page page;
 
-    protected BaseComponent(final Page page) {
+    protected BaseComponent(Page page) {
         this.page = page;
     }
 }

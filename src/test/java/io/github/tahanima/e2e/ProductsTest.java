@@ -1,20 +1,23 @@
 package io.github.tahanima.e2e;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+import static io.github.tahanima.config.ConfigurationManager.config;
+
 import com.microsoft.playwright.Browser;
+
 import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
 import io.github.tahanima.annotation.Smoke;
 import io.github.tahanima.annotation.TestDataSource;
-import io.github.tahanima.fixture.ProductsFixture;
+import io.github.tahanima.testdata.ProductsTestData;
 import io.github.tahanima.ui.page.LoginPage;
 import io.qameta.allure.*;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 
 import java.nio.file.Paths;
-
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-import static io.github.tahanima.config.ConfigurationManager.config;
 
 /**
  * @author tahanima
@@ -64,10 +67,10 @@ public class ProductsTest extends BaseTest {
     @Owner("Tahanima Chowdhury")
     @Description("Test that verifies user gets redirected to 'Login' page after logging out")
     @ParameterizedRepeatedIfExceptionsTest
-    @TestDataSource(id = "TC-1", fileName = CSV_PATH, clazz = ProductsFixture.class)
-    public void testSuccessfulLogout(final ProductsFixture fixture) {
-        loginPage.loginAs(fixture.getUsername(), fixture.getPassword()).clickOnLogout();
+    @TestDataSource(id = "TC-1", fileName = CSV_PATH, clazz = ProductsTestData.class)
+    public void testSuccessfulLogout(ProductsTestData testData) {
+        loginPage.loginAs(testData.getUsername(), testData.getPassword()).clickOnLogout();
 
-        assertThat(page).hasURL(fixture.getUrl());
+        assertThat(page).hasURL(testData.getUrl());
     }
 }

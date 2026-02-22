@@ -14,19 +14,19 @@ public enum BrowserFactory {
 
     CHROMIUM {
         @Override
-        public Browser createInstance(final Playwright playwright) {
+        public Browser createInstance(Playwright playwright) {
             return playwright.chromium().launch(options());
         }
     },
     FIREFOX {
         @Override
-        public Browser createInstance(final Playwright playwright) {
+        public Browser createInstance(Playwright playwright) {
             return playwright.firefox().launch(options());
         }
     },
     WEBKIT {
         @Override
-        public Browser createInstance(final Playwright playwright) {
+        public Browser createInstance(Playwright playwright) {
             return playwright.webkit().launch(options());
         }
     };
@@ -37,5 +37,5 @@ public enum BrowserFactory {
                 .setSlowMo(config().slowMotion());
     }
 
-    public abstract Browser createInstance(final Playwright playwright);
+    public abstract Browser createInstance(Playwright playwright);
 }

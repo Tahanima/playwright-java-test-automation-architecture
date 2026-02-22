@@ -8,7 +8,7 @@ import io.qameta.allure.Step;
  */
 public final class SideNavMenu extends BaseComponent {
 
-    public SideNavMenu(final Page page) {
+    public SideNavMenu(Page page) {
         super(page);
     }
 
