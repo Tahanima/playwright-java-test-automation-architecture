@@ -55,12 +55,12 @@ The project is structured as follows:
 📦 playwright-java-test-automation-architecture
 ├─ .gemini
 │  └─ skills
-│     └─ code-reviewer
-|        └─ review-rules.md
-|        └─ SKILL.md
-|     └─ healing-agent
-|        └─ locator-healer.md
-|        └─ SKILL.md
+│     ├─ code-reviewer
+│     │  ├─ review-rules.md
+│     │  └─ SKILL.md
+│     └─ healing-agent
+│        ├─ locator-healer.md
+│        └─ SKILL.md
 ├─ .github
 │  ├─ FUNDING.yml
 │  ├─ dependabot.yml
