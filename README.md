@@ -177,7 +177,7 @@ The project is structured as follows:
 - ### Test Data
   The project uses *csv* file to store test data and [*univocity-parsers*](https://github.com/uniVocity/univocity-parsers) to retrieve the data and map it to a Java bean.
 
-  To add configurations for new test data, add a new Java bean in the [*testData*](./src/main/java/io/github/tahanima/testdata) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
+  To add configurations for new test data, add a new Java bean in the [*testdata*](./src/main/java/io/github/tahanima/testdata) package. For example, let's say I want to add test data for a `User` with the attributes `First Name` and `Last Name`. The code for this is as follows:
 
    ```java
    package io.github.tahanima.testdata;
@@ -189,7 +189,7 @@ The project is structured as follows:
 
    @Getter
    @ToString(callSuper = true)
-   public class UsertestData extends BasetestData {
+   public class UserTestData extends BaseTestData {
 
        @Parsed(field = "First Name", defaultNullRead = "")
        private String firstName;
@@ -198,14 +198,14 @@ The project is structured as follows:
        private String lastName;
    }
    ```
-   Note that the class extends from BasetestData and thus, inherits the attribute `Test Case ID`.
+   Note that the class extends from BaseTestData and thus, inherits the attribute `Test Case ID`.
 
    Now, in the [*testdata*](./src/test/resources/testdata) folder you can add a csv file `user.csv` for `User` with the below contents and use it in your tests.
    ```
    Test Case ID,First Name,Last Name
    TC-1,Tahanima,Chowdhury
    ```
-   For reference, check [this](./src/main/java/io/github/tahanima/testdata/LogintestData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
+   For reference, check [this](./src/main/java/io/github/tahanima/testdata/LoginTestData.java), [this](./src/test/resources/testdata/login.csv) and [this](./src/test/java/io/github/tahanima/e2e/LoginTest.java).
 
 - ### Page Objects and Page Component Objects
   The project uses [*Page Objects* and *Page Component Objects*](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) to capture the relevant behaviors of a web page. Check the [*ui*](./src/main/java/io/github/tahanima/ui) package for reference.
@@ -229,7 +229,7 @@ The project includes a `GEMINI.md` file which serves as the AI's "Source of Trut
 - **Playwright Best Practices** (Accessibility-first locators over brittle XPaths).
 
 ### Specialized AI Skills
-We have implemented custom **Skills** in the `.gemini/skills/` directory to automate common QA tasks:
+The project contains custom **Skills** in the `.gemini/skills/` directory to automate common QA tasks:
 
 - **`code-reviewer`**: Automatically audits new Page Objects, POJOs, and Tests to ensure they follow the project's layer separation and naming conventions.
 - **`healing-agent`**: Diagnoses test failures (like `TimeoutError`) and suggests robust, accessibility-first Playwright locators (e.g., `getByRole`) to replace brittle XPaths.
