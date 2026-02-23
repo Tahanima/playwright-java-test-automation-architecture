@@ -70,6 +70,7 @@ The project is structured as follows:
 ├─ LICENSE
 ├─ README.md
 ├─ GEMINI.md
+├─ gemini-config.json
 ├─ build.gradle
 ├─ gradle
 │  └─ wrapper
@@ -90,7 +91,7 @@ The project is structured as follows:
    │  │           ├─ factory
    │  │           │  ├─ BasePageFactory.java
    │  │           │  └─ BrowserFactory.java
-   │  │           ├─ testData
+   │  │           ├─ testdata
    │  │           │  ├─ BaseTestData.java
    │  │           │  ├─ LoginTestData.java
    │  │           │  └─ ProductsTestData.java
